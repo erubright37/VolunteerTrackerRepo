@@ -35,14 +35,26 @@
                                             <segue destination="wha-bl-HQO" kind="show" identifier="toSignInScreen" id="h4w-kl-2iE"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mUT-i2-sEC">
+                                        <rect key="frame" x="5" y="20.5" width="86" height="31"/>
+                                        <buttonConfiguration key="configuration" style="gray" image="gearshape.2.fill" catalog="system">
+                                            <color key="baseForegroundColor" white="0.25" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <segue destination="RlA-cH-a62" kind="show" identifier="toSettngsScreen" id="3Y1-Mr-W11"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.69803923369999998" green="0.9098039269" blue="0.96470588450000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstItem="E1P-4B-gUs" firstAttribute="top" secondItem="Sic-fu-YFA" secondAttribute="top" constant="1" id="16j-wx-7Cn"/>
+                                    <constraint firstItem="mUT-i2-sEC" firstAttribute="leading" secondItem="Sic-fu-YFA" secondAttribute="leading" constant="5" id="4xF-D4-F6z"/>
                                     <constraint firstItem="E1P-4B-gUs" firstAttribute="centerX" secondItem="Sic-fu-YFA" secondAttribute="centerX" id="BrE-zL-dlm"/>
                                     <constraint firstItem="WH4-cD-8nC" firstAttribute="centerY" secondItem="E1P-4B-gUs" secondAttribute="centerY" id="JNs-ve-aYe"/>
+                                    <constraint firstItem="E1P-4B-gUs" firstAttribute="leading" secondItem="mUT-i2-sEC" secondAttribute="trailing" constant="1" id="QFY-Hv-JuX"/>
                                     <constraint firstAttribute="trailing" secondItem="WH4-cD-8nC" secondAttribute="trailing" constant="5" id="ZAV-SM-dFk"/>
                                     <constraint firstItem="WH4-cD-8nC" firstAttribute="leading" secondItem="E1P-4B-gUs" secondAttribute="trailing" constant="1" id="dGP-Pp-DvR"/>
+                                    <constraint firstItem="mUT-i2-sEC" firstAttribute="centerY" secondItem="E1P-4B-gUs" secondAttribute="centerY" id="eqj-e7-4Bv"/>
                                     <constraint firstItem="E1P-4B-gUs" firstAttribute="width" secondItem="Sic-fu-YFA" secondAttribute="width" multiplier="0.55" id="fyx-JL-Yon"/>
                                     <constraint firstAttribute="bottom" secondItem="E1P-4B-gUs" secondAttribute="bottom" constant="1" id="lEu-xD-zlx"/>
                                 </constraints>
@@ -500,11 +512,12 @@
             <objects>
                 <viewController id="RlA-cH-a62" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bXL-QX-a4L">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="5wK-Sl-jLb"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <navigationItem key="navigationItem" id="dkD-kz-Jcl"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aYe-sE-7Dn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -631,6 +644,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="gearshape.2.fill" catalog="system" width="128" height="100"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
