@@ -33,7 +33,7 @@ class HourLogViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         
         skillTableview.dataSource = self
         skillTableview.delegate = self
-        
+        skills.removeAll()
     }
     
     @IBAction func AddLogClicked(_ sender: UIButton) {
