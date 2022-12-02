@@ -9,10 +9,12 @@ import UIKit
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    // Variables
     var progress: Float = 0.0
     var totalHours: Double = 0.0
     var volunteerLogs = [HourLog]()
 
+    //UI Elements
     @IBOutlet weak var tableview: UITableView!
     @IBOutlet weak var goalProgressBar: UIProgressView!
     @IBOutlet weak var goalLabel: UILabel!
@@ -20,15 +22,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Goal and Total Hours
         CalculateSum()
         progress  = Float(totalHours)/10.0
         goalProgressBar.setProgress(Float(progress), animated: true)
         goalLabel.text = "Goal Progress: \(totalHours)/10 Hours"
         
+        // Tableview
         tableview.dataSource = self
         tableview.delegate = self
     }
     
+    // Calculate sum of volunteer hours
     func CalculateSum() {
         totalHours = 0.0
         for item in volunteerLogs {
@@ -37,7 +42,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     // MARK: - Table view data source
-
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -67,6 +71,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return 15
     }
 
+    // Unwind from back button (doing nothing)
     @IBAction func unwindfromBack(unwindSegue: UIStoryboardSegue) {
         // Reset view
         viewDidLoad()
