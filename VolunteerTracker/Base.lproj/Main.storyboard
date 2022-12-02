@@ -377,7 +377,7 @@
                                             <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </buttonConfiguration>
                                         <connections>
-                                            <segue destination="f48-V9-9D4" kind="unwind" unwindAction="unwindfromBackWithUnwindSegue:" id="6ys-RW-KMX"/>
+                                            <segue destination="f48-V9-9D4" kind="unwind" unwindAction="unwindfromNewLogWithUnwindSegue:" id="wLV-9a-UJi"/>
                                         </connections>
                                     </button>
                                 </subviews>

@@ -9,9 +9,9 @@ import UIKit
 
 class HourLogViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDelegate, UITableViewDataSource {
     
+    var Logs = [HourLog]()
     var categories = [String]()
     var skills = [String]()
-    var newLog = HourLog(title: "", time: 0.0, date: Date())
     
     @IBOutlet weak var titleText: UITextField!
     @IBOutlet weak var organizationText: UITextField!
@@ -63,7 +63,7 @@ class HourLogViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             category = categories[categoryPicker.selectedRow(inComponent: 0)]
         }
         
-        newLog = HourLog(title: title, organization: organization, supervisor: supervisor, time: time, date: datePicker.date, category: category, skills: skills)
+        Logs.append(HourLog(title: title, organization: organization, supervisor: supervisor, time: time, date: datePicker.date, category: category, skills: skills))
         
         // Clear UI Elements
     }

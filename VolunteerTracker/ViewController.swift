@@ -70,6 +70,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 15
     }
+    
+    // Unwind from back button on New Log Screen
+    @IBAction func unwindfromNewLog(unwindSegue: UIStoryboardSegue) {
+        if let sourceViewController = unwindSegue.source as? HourLogViewController {
+            volunteerLogs += sourceViewController.Logs
+        }
+        tableview.reloadData()
+        
+        // Reset view
+        viewDidLoad()
+    }
 
     // Unwind from back button (doing nothing)
     @IBAction func unwindfromBack(unwindSegue: UIStoryboardSegue) {
