@@ -10,6 +10,7 @@ import UIKit
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     // Variables
+    var goalHours: Double = 10.0
     var progress: Float = 0.0
     var totalHours: Double = 0.0
     var volunteerLogs = [HourLog]()
@@ -24,9 +25,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         // Goal and Total Hours
         CalculateSum()
-        progress  = Float(totalHours)/10.0
+        if totalHours > goalHours {
+            progress = 1.0
+        } else {
+            progress = Float(totalHours)/Float(goalHours)
+        }
         goalProgressBar.setProgress(Float(progress), animated: true)
-        goalLabel.text = "Goal Progress: \(totalHours)/10 Hours"
+        goalLabel.text = "Goal Progress: \(totalHours)/\(goalHours)"
         
         // Tableview
         tableview.dataSource = self

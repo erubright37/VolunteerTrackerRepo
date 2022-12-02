@@ -66,6 +66,13 @@ class HourLogViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         Logs.append(HourLog(title: title, organization: organization, supervisor: supervisor, time: time, date: datePicker.date, category: category, skills: skills))
         
         // Clear UI Elements
+        titleText.text = ""
+        organizationText.text = ""
+        supervisorText.text = ""
+        timeText.text = ""
+        skills.removeAll()
+        skillTableview.reloadData()
+        
     }
     
     // MARK: - Table view data source
