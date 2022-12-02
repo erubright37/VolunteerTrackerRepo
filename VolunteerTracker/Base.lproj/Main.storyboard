@@ -62,7 +62,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Ri-Ns-A4G">
                                 <rect key="frame" x="3" y="118.5" width="408" height="448"/>
                                 <subviews>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="OQe-hV-56i">
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="20" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="OQe-hV-56i">
                                         <rect key="frame" x="1" y="1" width="406" height="446"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <color key="sectionIndexBackgroundColor" red="0.45217253149999997" green="0.67507282940000002" blue="0.73015309340000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -175,6 +175,9 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Sic-fu-YFA" secondAttribute="trailing" constant="3" id="w9J-2a-qb7"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableview" destination="OQe-hV-56i" id="3FG-ty-2xR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
