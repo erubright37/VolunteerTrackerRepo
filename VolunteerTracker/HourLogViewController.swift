@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HourLogViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
+class HourLogViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDelegate, UITableViewDataSource {
     
     var categories = [String]()
     var skills = [String]()
@@ -27,8 +27,12 @@ class HourLogViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         categories.append("Tutoring")
         categories.append("Serving Food")
         categories.append("Outdoors")
+        
         categoryPicker.delegate = self
         categoryPicker.dataSource = self
+        
+        skillTableview.dataSource = self
+        skillTableview.delegate = self
         
     }
     
@@ -43,26 +47,44 @@ class HourLogViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             return
         }
         
+        var organization = ""
+        var supervisor = ""
+        var category = ""
+        
         if organizationText.text != nil {
-            let organization = organizationText.text
-        } else {
-            let organization = ""
+            organization = organizationText.text!
         }
         
         if supervisorText.text != nil {
-            let supervisor = supervisorText.text
-        } else {
-            let supervisor = ""
+            supervisor = supervisorText.text!
         }
         
         if categories[categoryPicker.selectedRow(inComponent: 0)] != nil {
-            // Valid
-        } else {
-            let category = ""
+            category = categories[categoryPicker.selectedRow(inComponent: 0)]
         }
         
+        newLog = HourLog(title: title, organization: organization, supervisor: supervisor, time: time, date: datePicker.date, category: category, skills: skills)
         
+        // Clear UI Elements
+    }
+    
+    // MARK: - Table view data source
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return skills.count
+    }
+
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "skill_cell", for: indexPath)
         
+        // Configure
+        cell.textLabel?.text = skills[indexPath.row]
+        
+        return cell
     }
     
     @IBAction func AddSkillClicked(_ sender: UIButton) {
@@ -77,6 +99,7 @@ class HourLogViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
                 return
             }
             self.skills.append(textField)
+            self.skillTableview.reloadData()
         }))
         present(alert, animated: true)
     }
