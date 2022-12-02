@@ -9,21 +9,31 @@ import UIKit
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    var progress: Float = 0.0
+    var totalHours: Double = 0.0
     var volunteerLogs = [HourLog]()
 
     @IBOutlet weak var tableview: UITableView!
+    @IBOutlet weak var goalProgressBar: UIProgressView!
+    @IBOutlet weak var goalLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd HH:mm"
-        let someDateTime = formatter.date(from: "2016/10/08 22:31")!
-        
-        volunteerLogs.append(HourLog(title: "LOG 1", time: 2.0, date: someDateTime))
+        CalculateSum()
+        progress  = Float(totalHours)/10.0
+        goalProgressBar.setProgress(Float(progress), animated: true)
+        goalLabel.text = "Goal Progress: \(totalHours)/10 Hours"
         
         tableview.dataSource = self
         tableview.delegate = self
+    }
+    
+    func CalculateSum() {
+        totalHours = 0.0
+        for item in volunteerLogs {
+            totalHours += item.time
+        }
     }
     
     // MARK: - Table view data source
@@ -49,7 +59,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     // Header Methods
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
         return "Logs"
     }
     

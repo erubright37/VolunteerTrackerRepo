@@ -132,7 +132,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="n7f-j7-FMw">
+                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="n7f-j7-FMw">
                                         <rect key="frame" x="81.5" y="143" width="245" height="4"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -176,6 +176,8 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="goalLabel" destination="WBq-dJ-Rlb" id="WKN-Rf-8rf"/>
+                        <outlet property="goalProgressBar" destination="n7f-j7-FMw" id="NwR-Id-2g1"/>
                         <outlet property="tableview" destination="OQe-hV-56i" id="3FG-ty-2xR"/>
                     </connections>
                 </viewController>
