@@ -183,7 +183,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="28.985507246376812" y="83.705357142857139"/>
+            <point key="canvasLocation" x="84" y="84"/>
         </scene>
         <!--Hour Log View Controller-->
         <scene sceneID="Zth-WM-BX9">
@@ -366,6 +366,9 @@
                                         <buttonConfiguration key="configuration" style="gray" title="Add New Log">
                                             <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="AddLogClicked:" destination="nRD-q3-vK0" eventType="touchUpInside" id="HAI-pk-lvs"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fex-pX-gEE">
                                         <rect key="frame" x="10" y="10" width="163" height="31"/>
@@ -452,6 +455,9 @@
                                                         <buttonConfiguration key="configuration" style="gray" title="Add Skill">
                                                             <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </buttonConfiguration>
+                                                        <connections>
+                                                            <action selector="AddSkillClicked:" destination="nRD-q3-vK0" eventType="touchUpInside" id="3Tv-Yn-E4r"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -500,11 +506,20 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Df1-l9-nFS"/>
+                    <connections>
+                        <outlet property="categoryPicker" destination="BkY-8s-b6Z" id="m0R-ZL-3RR"/>
+                        <outlet property="datePicker" destination="sR6-a9-HVb" id="egS-XL-fWh"/>
+                        <outlet property="organizationText" destination="P2h-o0-Rni" id="OfM-3Z-ZnW"/>
+                        <outlet property="skillTableview" destination="k15-hZ-DDS" id="Hhd-4Z-jP2"/>
+                        <outlet property="supervisorText" destination="Kv5-Oe-t8c" id="D9O-QA-YBk"/>
+                        <outlet property="timeText" destination="mC4-Uc-69e" id="l1g-5a-590"/>
+                        <outlet property="titleText" destination="Sna-0x-2p9" id="XNh-JH-fA1"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nrU-ue-ldY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="f48-V9-9D4" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="982.60869565217399" y="478.79464285714283"/>
+            <point key="canvasLocation" x="822" y="486"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="kut-eg-ush">
@@ -560,7 +575,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aYe-sE-7Dn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="Kwf-Rt-Haf" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1696" y="84"/>
+            <point key="canvasLocation" x="1500" y="84"/>
         </scene>
         <!--Sign In View Controller-->
         <scene sceneID="tid-pB-dLN">
@@ -679,7 +694,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hPM-65-XpI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="kGD-EE-RLF" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="983" y="-307"/>
+            <point key="canvasLocation" x="822" y="-308"/>
         </scene>
     </scenes>
     <resources>
