@@ -10,6 +10,10 @@ import FirebaseAuth
 
 class SignInViewController: UIViewController {
     
+    var user: User!
+    var uid = ""
+    var signedIn = false
+    
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
@@ -44,6 +48,10 @@ class SignInViewController: UIViewController {
             strongSelf.emailTextField.text = ""
             strongSelf.passwordTextField.text = ""
             print("Signed In")
+            strongSelf.signedIn = true
+            
+            strongSelf.user = FirebaseAuth.Auth.auth().currentUser
+            strongSelf.uid = strongSelf.user!.uid
         })
         
     }
@@ -65,6 +73,7 @@ class SignInViewController: UIViewController {
                 strongSelf.emailTextField.text = ""
                 strongSelf.passwordTextField.text = ""
                 print("Signed In")
+                strongSelf.signedIn = true
             })
         }))
         alert.addAction(UIAlertAction(title: "No", style: .destructive, handler: { _ in
@@ -76,6 +85,9 @@ class SignInViewController: UIViewController {
         do {
             try FirebaseAuth.Auth.auth().signOut()
             print("Signed Out")
+            signedIn = false
+            
+            uid = ""
         }
         catch {
             print("error occurred")

@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseDatabase
+import Firebase
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -19,6 +20,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var currentIndex = 0
     
     let ref = Database.database().reference(withPath: "Logs")
+    var userRef: DatabaseReference!
+    
+    var uid = ""
+    var signedIn = false
 
     //UI Elements
     @IBOutlet weak var tableview: UITableView!
@@ -41,6 +46,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // Tableview
         tableview.dataSource = self
         tableview.delegate = self
+        
+        if let user = FirebaseAuth.Auth.auth().currentUser {
+            uid = user.uid
+            userRef = ref.child("Users").child(uid)
+            signedIn = true
+        }
     }
     
     // Calculate sum of volunteer hours
@@ -83,7 +94,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     // Segue to Edit screen
     @IBAction func AddLogScreenClick(_ sender: UIButton) {
-        self.performSegue(withIdentifier: "toNewLogScreen", sender: self)
+        if signedIn == true {
+            self.performSegue(withIdentifier: "toNewLogScreen", sender: self)
+        } else {
+            let alert = UIAlertController(title: "Please Sign In to Add New Log", message: "You must sign in before the log can be changed.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Canel", style: .cancel))
+            alert.addAction(UIAlertAction(title: "Sign In", style: .default, handler: { (action:UIAlertAction) in
+                self.performSegue(withIdentifier: "toSignInScreen", sender: self)
+
+            }))
+
+            present(alert, animated: true)
+        }
     }
     
     // Send data through segue to edit screen
@@ -128,7 +150,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             var index = 0
             for log in volunteerLogs {
-                let logRef = ref.child("Log\(index)")
+                let logRef = userRef.child("Log\(index)")
                 let logDict: [String: String] = ["title": log.title, "organization": log.organization, "supervisor": log.supervisor, "time": log.time.description, "date": log.date.description, "category": log.category]
                 
                 logRef.setValue(logDict) {
@@ -168,6 +190,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     // Unwind from back button (doing nothing)
     @IBAction func unwindfromBack(unwindSegue: UIStoryboardSegue) {
+        if let sourceViewController = unwindSegue.source as? SignInViewController {
+            signedIn = sourceViewController.signedIn
+            uid = sourceViewController.uid
+        }
+        
         // Reset view
         viewDidLoad()
     }
