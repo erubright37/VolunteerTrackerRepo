@@ -14,6 +14,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var progress: Float = 0.0
     var totalHours: Double = 0.0
     var volunteerLogs = [HourLog]()
+    var logToSend: HourLog!
+    var currentIndex = 0
 
     //UI Elements
     @IBOutlet weak var tableview: UITableView!
@@ -76,14 +78,54 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return 15
     }
     
+    // Segue to Edit screen
+    @IBAction func AddLogScreenClick(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "toNewLogScreen", sender: self)
+    }
+    
+    // Send data through segue to edit screen
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toNewLogScreen" {
+            let destination = segue.destination as? HourLogViewController
+            destination?.Logs = volunteerLogs
+        }
+        
+        if segue.identifier == "toEditLogScreen" {
+            let destination = segue.destination as? EditLogViewController
+            destination?.Logs = volunteerLogs
+            destination?.currentLog = logToSend
+            destination?.currentIndex = currentIndex
+        }
+    }
+    
+    // Selected row triggers segue to article details view
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        logToSend = volunteerLogs[indexPath.row]
+        currentIndex = indexPath.row
+        
+        self.performSegue(withIdentifier: "toEditLogScreen", sender: self)
+    }
+    
+    // Unwind from back button on Edit Log Screen
+    @IBAction func unwindfromEditLog(unwindSegue: UIStoryboardSegue) {
+        if let sourceViewController = unwindSegue.source as? EditLogViewController {
+            volunteerLogs = sourceViewController.Logs
+        }
+        
+        // Reset view
+        tableview.reloadData()
+        viewDidLoad()
+    }
+    
     // Unwind from back button on New Log Screen
     @IBAction func unwindfromNewLog(unwindSegue: UIStoryboardSegue) {
         if let sourceViewController = unwindSegue.source as? HourLogViewController {
-            volunteerLogs += sourceViewController.Logs
+            volunteerLogs = sourceViewController.Logs
         }
-        tableview.reloadData()
         
         // Reset view
+        tableview.reloadData()
         viewDidLoad()
     }
 
