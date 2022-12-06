@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseDatabase
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -16,6 +17,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var volunteerLogs = [HourLog]()
     var logToSend: HourLog!
     var currentIndex = 0
+    
+    let ref = Database.database().reference(withPath: "Logs")
 
     //UI Elements
     @IBOutlet weak var tableview: UITableView!
@@ -122,6 +125,40 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBAction func unwindfromNewLog(unwindSegue: UIStoryboardSegue) {
         if let sourceViewController = unwindSegue.source as? HourLogViewController {
             volunteerLogs = sourceViewController.Logs
+            
+            var index = 0
+            for log in volunteerLogs {
+                let logRef = ref.child("Log\(index)")
+                let logDict: [String: String] = ["title": log.title, "organization": log.organization, "supervisor": log.supervisor, "time": log.time.description, "date": log.date.description, "category": log.category]
+                
+                logRef.setValue(logDict) {
+                  (error:Error?, ref:DatabaseReference) in
+                    if let error = error {
+                      print("Data could not be saved: \(error).")
+                    } else {
+                      print("Data saved successfully!")
+                    }
+                  }
+                
+                let skillRef = logRef.child("Skills")
+                var skillIndex = 0
+                var skillDict = [String: String]()
+                for skill in log.skills {
+                    skillDict["Skill\(skillIndex)"] = skill
+                    skillIndex += 1
+                }
+                
+                skillRef.setValue(skillDict) {
+                  (error:Error?, ref:DatabaseReference) in
+                    if let error = error {
+                      print("Data could not be saved: \(error).")
+                    } else {
+                      print("Data saved successfully!")
+                    }
+                  }
+                
+                index += 1
+            }
         }
         
         // Reset view
