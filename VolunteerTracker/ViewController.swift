@@ -52,7 +52,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             userRef = ref.child("Users").child(uid).child("Logs")
             signedIn = true
             
-            ref.child("Users").child(uid).child("Logs").getData(completion:  { error, snapshot in
+            userRef.getData(completion:  { error, snapshot in
               guard error == nil else {
                 print(error!.localizedDescription)
                 return;
