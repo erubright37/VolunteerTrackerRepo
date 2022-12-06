@@ -63,7 +63,7 @@ class HourLogViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             category = categories[categoryPicker.selectedRow(inComponent: 0)]
         }
         
-        Logs.append(HourLog(title: title, organization: organization, supervisor: supervisor, time: time, date: datePicker.date, category: category, skills: skills))
+        Logs.append(HourLog(title: title, organization: organization, supervisor: supervisor, time: time, date: datePicker.date.description, category: category, skills: skills))
         
         // Clear UI Elements
         titleText.text = ""

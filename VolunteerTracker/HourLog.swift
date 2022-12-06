@@ -13,11 +13,11 @@ class HourLog {
     var organization: String
     var supervisor: String
     var time: Double
-    var date: Date
+    var date: String
     var category: String
     var skills: [String]
     
-    init(title: String, organization: String = "None", supervisor: String = "None", time: Double, date: Date, category: String = "None", skills: [String] = [String]()) {
+    init(title: String, organization: String = "None", supervisor: String = "None", time: Double, date: String, category: String = "None", skills: [String] = [String]()) {
         self.title = title
         self.organization = organization
         self.supervisor = supervisor

@@ -49,8 +49,32 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         if let user = FirebaseAuth.Auth.auth().currentUser {
             uid = user.uid
-            userRef = ref.child("Users").child(uid)
+            userRef = ref.child("Users").child(uid).child("Logs")
             signedIn = true
+            
+            ref.child("Users").child(uid).child("Logs").getData(completion:  { error, snapshot in
+              guard error == nil else {
+                print(error!.localizedDescription)
+                return;
+              }
+                if let logs = snapshot?.value as? [Any] {
+                    for item in logs {
+                        guard let log = item as? [String : Any],
+                              let title = log["title"] as? String,
+                              let organization = log["organization"] as? String,
+                              let supervisor = log["supervisor"] as? String,
+                              let category = log["category"] as? String,
+                              let date = log["date"] as? String,
+                              let time = log["time"] as? String,
+                              let skills = log["skills"] as? [Any],
+                              let skill = skills as? [String]
+                        else { return }
+                        
+                        self.volunteerLogs.append(HourLog(title: title, organization: organization, supervisor: supervisor, time: Double(time)!, date: date, category: category, skills: skill))
+                    }
+                }
+                
+            });
         }
     }
     
@@ -68,16 +92,24 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return volunteerLogs.count
+        if signedIn == true {
+            return volunteerLogs.count
+        } else {
+            return 1
+        }
     }
 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell_id1", for: indexPath)
         
-        // Configure
-        cell.textLabel?.text = volunteerLogs[indexPath.row].title
-        cell.detailTextLabel?.text = "\(volunteerLogs[indexPath.row].time) Hours"
+        if signedIn == true {
+            // Configure
+            cell.textLabel?.text = volunteerLogs[indexPath.row].title
+            cell.detailTextLabel?.text = "\(volunteerLogs[indexPath.row].time) Hours"
+        } else {
+            cell.textLabel?.text = "Please Sign In to See Your Log"
+        }
         
         return cell
     }
@@ -125,11 +157,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     // Selected row triggers segue to article details view
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        logToSend = volunteerLogs[indexPath.row]
-        currentIndex = indexPath.row
-        
-        self.performSegue(withIdentifier: "toEditLogScreen", sender: self)
+        if signedIn == true {
+            logToSend = volunteerLogs[indexPath.row]
+            currentIndex = indexPath.row
+            
+            self.performSegue(withIdentifier: "toEditLogScreen", sender: self)
+        } else {
+            let alert = UIAlertController(title: "Please Sign In to Edit Log", message: "You must sign in before the log can be changed.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Canel", style: .cancel))
+            alert.addAction(UIAlertAction(title: "Sign In", style: .default, handler: { (action:UIAlertAction) in
+                self.performSegue(withIdentifier: "toSignInScreen", sender: self)
+
+            }))
+
+            present(alert, animated: true)
+        }
     }
     
     // Unwind from back button on Edit Log Screen

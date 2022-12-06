@@ -43,7 +43,7 @@ class EditLogViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         organizationText.text = currentLog.organization
         supervisorText.text = currentLog.supervisor
         timeText.text = currentLog.time.description
-        datePicker.date = currentLog.date
+        //datePicker.date = currentLog.date.
     }
     
     @IBAction func SaveLogClicked(_ sender: UIButton) {
@@ -74,7 +74,7 @@ class EditLogViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         }
         Logs.remove(at: currentIndex)
         
-        Logs.insert(HourLog(title: title, organization: organization, supervisor: supervisor, time: time, date: datePicker.date, category: category, skills: skills), at: currentIndex)
+        Logs.insert(HourLog(title: title, organization: organization, supervisor: supervisor, time: time, date: datePicker.date.description, category: category, skills: skills), at: currentIndex)
         
         // Clear UI Elements
         titleText.text = ""
