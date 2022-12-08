@@ -19,7 +19,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var logToSend: HourLog!
     var currentIndex = 0
     
-    let ref = Database.database().reference(withPath: "Logs")
+    let ref = Database.database().reference(withPath: "Users")
     var userRef: DatabaseReference!
     
     var uid = ""
@@ -49,31 +49,33 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         if let user = FirebaseAuth.Auth.auth().currentUser {
             uid = user.uid
-            userRef = ref.child("Users").child(uid).child("Logs")
+            userRef = ref.child(uid).child("Logs")
             signedIn = true
             
-            userRef.getData(completion:  { error, snapshot in
-              guard error == nil else {
-                print(error!.localizedDescription)
-                return;
-              }
-                if let logs = snapshot?.value as? [Any] {
+            userRef.observe(.childAdded, with: { (snapshot) in
+                
+                if let logs = snapshot.value as? [String : Any] {
                     for item in logs {
-                        guard let log = item as? [String : Any],
+                        var skill = [String]()
+                        guard let log = item.value as? [String : Any],
                               let title = log["title"] as? String,
                               let organization = log["organization"] as? String,
                               let supervisor = log["supervisor"] as? String,
                               let category = log["category"] as? String,
                               let date = log["date"] as? String,
-                              let time = log["time"] as? String,
-                              let skills = log["skills"] as? [Any],
-                              let skill = skills as? [String]
+                              let time = log["time"] as? String
                         else { return }
+                        
+                        if let skills = log["skills"] as? [Any] {
+                            skill = (skills as? [String])!
+                        }
+                        
+                        print(log)
                         
                         self.volunteerLogs.append(HourLog(title: title, organization: organization, supervisor: supervisor, time: Double(time)!, date: date, category: category, skills: skill))
                     }
                 }
-                
+                self.tableview.reloadData()
             });
         }
     }
@@ -192,19 +194,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             var index = 0
             for log in volunteerLogs {
-                let logRef = userRef.child("Log\(index)")
-                let logDict: [String: String] = ["title": log.title, "organization": log.organization, "supervisor": log.supervisor, "time": log.time.description, "date": log.date.description, "category": log.category]
+                var reference  = Database.database().reference().child("Users").child(uid).child("Logs").childByAutoId()
+                let logDict: [String : [String : String]] = ["log\(index)": ["title": log.title, "organization": log.organization, "supervisor": log.supervisor, "time": log.time.description, "date": log.date.description, "category": log.category]]
                 
-                logRef.setValue(logDict) {
-                  (error:Error?, ref:DatabaseReference) in
-                    if let error = error {
-                      print("Data could not be saved: \(error).")
-                    } else {
-                      print("Data saved successfully!")
-                    }
-                  }
+                reference.setValue(logDict)
                 
-                let skillRef = logRef.child("Skills")
+                let skillRef = reference.child("Skills")
                 var skillIndex = 0
                 var skillDict = [String: String]()
                 for skill in log.skills {
