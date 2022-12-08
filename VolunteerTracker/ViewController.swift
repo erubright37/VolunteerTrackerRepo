@@ -33,6 +33,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Tableview
+        tableview.dataSource = self
+        tableview.delegate = self
+        
+        if signedIn == false {
+            volunteerLogs.removeAll()
+            tableview.reloadData()
+        }
+        
         // Goal and Total Hours
         CalculateSum()
         if totalHours > goalHours {
@@ -42,10 +51,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         goalProgressBar.setProgress(Float(progress), animated: true)
         goalLabel.text = "Goal Progress: \(totalHours)/\(goalHours)"
-        
-        // Tableview
-        tableview.dataSource = self
-        tableview.delegate = self
         
         if let user = FirebaseAuth.Auth.auth().currentUser {
             uid = user.uid
@@ -235,5 +240,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // Reset view
         viewDidLoad()
     }
+    
+    
+    
 }
 
