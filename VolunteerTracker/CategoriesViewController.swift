@@ -57,6 +57,30 @@ class CategoriesViewController: UIViewController, UITableViewDelegate, UITableVi
         
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        // add alert
+        let alert = UIAlertController(title: "Delete Item", message: "Are you sure you want to delete this item?", preferredStyle: .alert)
+        let delete = UITableViewRowAction(style: .destructive, title: "Delete") { action, indexPath in
+            
+            // add buttons to alert
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "Confirm", style: .default, handler: { _ in
+                // delete from table
+                self.catTableView.deleteRows(at: [indexPath], with: .automatic)
+
+            }))
+            
+            // present alert
+            self.present(alert, animated: true)
+        }
+        
+        return [delete]
+    }
 
     
     /*

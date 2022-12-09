@@ -88,6 +88,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                             if entry.key == "Cat" {
                                 guard let cat = entry.value as? [String: Any]
                                 else { return }
+                                self.categories.removeAll()
                                 for category in cat {
                                     guard let cats = category.value as? [String : Any]
                                     else { return }
