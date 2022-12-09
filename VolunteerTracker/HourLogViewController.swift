@@ -10,8 +10,10 @@ import UIKit
 class HourLogViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDelegate, UITableViewDataSource {
     
     var Logs = [HourLog]()
+    var newLogs = [HourLog]()
     var categories = [String]()
     var skills = [String]()
+    var logIndex = 0
     
     @IBOutlet weak var titleText: UITextField!
     @IBOutlet weak var organizationText: UITextField!
@@ -47,6 +49,7 @@ class HourLogViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             return
         }
         
+        
         var organization = ""
         var supervisor = ""
         var category = ""
@@ -63,7 +66,8 @@ class HourLogViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             category = categories[categoryPicker.selectedRow(inComponent: 0)]
         }
         
-        Logs.append(HourLog(title: title, organization: organization, supervisor: supervisor, time: time, date: datePicker.date.description, category: category, skills: skills))
+        Logs.append(HourLog(logID: logIndex, title: title, organization: organization, supervisor: supervisor, time: time, date: datePicker.date.description, category: category, skills: skills))
+        //newLogs.append(HourLog(logID: logID, title: title, organization: organization, supervisor: supervisor, time: time, date: datePicker.date.description, category: category, skills: skills))
         
         // Clear UI Elements
         titleText.text = ""
@@ -72,7 +76,7 @@ class HourLogViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         timeText.text = ""
         skills.removeAll()
         skillTableview.reloadData()
-        
+        logIndex += 1
     }
     
     // MARK: - Table view data source

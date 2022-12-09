@@ -18,6 +18,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var volunteerLogs = [HourLog]()
     var logToSend: HourLog!
     var currentIndex = 0
+    var lastIndex = 0
     
     let ref = Database.database().reference(withPath: "Users")
     var userRef: DatabaseReference!
@@ -42,47 +43,61 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             tableview.reloadData()
         }
         
-        // Goal and Total Hours
-        CalculateSum()
-        if totalHours > goalHours {
-            progress = 1.0
-        } else {
-            progress = Float(totalHours)/Float(goalHours)
-        }
-        goalProgressBar.setProgress(Float(progress), animated: true)
-        goalLabel.text = "Goal Progress: \(totalHours)/\(goalHours)"
-        
         if let user = FirebaseAuth.Auth.auth().currentUser {
+            volunteerLogs.removeAll()
+            
             uid = user.uid
             userRef = ref.child(uid).child("Logs")
             signedIn = true
             
-            userRef.observe(.childAdded, with: { (snapshot) in
+            
+            if let user = FirebaseAuth.Auth.auth().currentUser {
+                uid = user.uid
+                userRef = ref.child(uid).child("Logs")
+                signedIn = true
                 
-                if let logs = snapshot.value as? [String : Any] {
-                    for item in logs {
-                        var skill = [String]()
-                        guard let log = item.value as? [String : Any],
-                              let title = log["title"] as? String,
-                              let organization = log["organization"] as? String,
-                              let supervisor = log["supervisor"] as? String,
-                              let category = log["category"] as? String,
-                              let date = log["date"] as? String,
-                              let time = log["time"] as? String
-                        else { return }
-                        
-                        if let skills = log["skills"] as? [Any] {
-                            skill = (skills as? [String])!
+                userRef.observe(.childAdded, with: { (snapshot) in
+                    
+                    if let logs = snapshot.value as? [String : Any] {
+                        for item in logs {
+                            var skill = [String]()
+                            guard let log = item.value as? [String : Any],
+                                  let logPath = log["ID"] as? String,
+                                  let title = log["title"] as? String,
+                                  let organization = log["organization"] as? String,
+                                  let supervisor = log["supervisor"] as? String,
+                                  let category = log["category"] as? String,
+                                  let date = log["date"] as? String,
+                                  let time = log["time"] as? String
+                            else { return }
+                            
+                            if let skills = log["skills"] as? [Any] {
+                                skill = (skills as? [String])!
+                            }
+                            let logIndex = Int(logPath)
+                                
+                            print(log)
+                            
+                            self.volunteerLogs.append(HourLog(logID: logIndex!, title: title, organization: organization, supervisor: supervisor, time: Double(time)!, date: date, category: category, skills: skill))
+                            
+                            self.lastIndex = logIndex! + 1
                         }
-                        
-                        print(log)
-                        
-                        self.volunteerLogs.append(HourLog(title: title, organization: organization, supervisor: supervisor, time: Double(time)!, date: date, category: category, skills: skill))
                     }
-                }
-                self.tableview.reloadData()
-            });
+                    self.tableview.reloadData()
+                    
+                    // Goal and Total Hours
+                    self.CalculateSum()
+                    if self.totalHours > self.goalHours {
+                        self.progress = 1.0
+                    } else {
+                        self.progress = Float(self.totalHours)/Float(self.goalHours)
+                    }
+                    self.goalProgressBar.setProgress(Float(self.progress), animated: true)
+                    self.goalLabel.text = "Goal Progress: \(self.totalHours)/\(self.goalHours)"
+                });
+            }
         }
+        
     }
     
     // Calculate sum of volunteer hours
@@ -151,7 +166,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toNewLogScreen" {
             let destination = segue.destination as? HourLogViewController
-            destination?.Logs = volunteerLogs
+            //destination?.Logs = volunteerLogs
+            destination?.logIndex = lastIndex
         }
         
         if segue.identifier == "toEditLogScreen" {
@@ -189,18 +205,27 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         // Reset view
         tableview.reloadData()
-        viewDidLoad()
     }
     
     // Unwind from back button on New Log Screen
     @IBAction func unwindfromNewLog(unwindSegue: UIStoryboardSegue) {
         if let sourceViewController = unwindSegue.source as? HourLogViewController {
-            volunteerLogs = sourceViewController.Logs
+            //volunteerLogs += sourceViewController.Logs
+            lastIndex = sourceViewController.logIndex
             
-            var index = 0
-            for log in volunteerLogs {
-                var reference  = Database.database().reference().child("Users").child(uid).child("Logs").childByAutoId()
-                let logDict: [String : [String : String]] = ["log\(index)": ["title": log.title, "organization": log.organization, "supervisor": log.supervisor, "time": log.time.description, "date": log.date.description, "category": log.category]]
+            var logPath = ""
+            for log in sourceViewController.Logs {
+                
+                        if log.logID <= 100 {
+                            logPath = "log\(log.logID)"
+                        }else if log.logID >= 10 {
+                            logPath = "log0\(log.logID)"
+                        } else {
+                            logPath = "log00\(log.logID)"
+                        }
+                
+                let reference  = Database.database().reference().child("Users").child(uid).child("Logs").child(logPath)
+                let logDict: [String : [String : String]] = [logPath: ["ID": log.logID.description, "title": log.title, "organization": log.organization, "supervisor": log.supervisor, "time": log.time.description, "date": log.date.description, "category": log.category]]
                 
                 reference.setValue(logDict)
                 
@@ -220,14 +245,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                       print("Data saved successfully!")
                     }
                   }
-                
-                index += 1
             }
         }
-        
-        // Reset view
-        tableview.reloadData()
-        viewDidLoad()
+        // Goal and Total Hours
+        self.CalculateSum()
+        if self.totalHours > self.goalHours {
+            self.progress = 1.0
+        } else {
+            self.progress = Float(self.totalHours)/Float(self.goalHours)
+        }
+        self.goalProgressBar.setProgress(Float(self.progress), animated: true)
+        self.goalLabel.text = "Goal Progress: \(self.totalHours)/\(self.goalHours)"
     }
 
     // Unwind from back button (doing nothing)
@@ -238,7 +266,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
         // Reset view
-        viewDidLoad()
+        tableview.reloadData()
     }
     
     

@@ -651,7 +651,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="heO-gp-GM9">
-                                        <rect key="frame" x="50" y="346" width="308" height="31"/>
+                                        <rect key="frame" x="50" y="695.5" width="308" height="31"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="gray" title="Sign Out">
                                             <color key="baseForegroundColor" red="0.1176470518" green="0.1294117719" blue="0.1411764771" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -665,23 +665,37 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RjM-WG-r5A">
+                                        <rect key="frame" x="50" y="346.5" width="308" height="31"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="gray" title="Create Account">
+                                            <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="CreateAccountClick:" destination="wha-bl-HQO" eventType="touchUpInside" id="VM5-vi-2rY"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.69803923369999998" green="0.9098039269" blue="0.96470588450000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
-                                    <constraint firstItem="heO-gp-GM9" firstAttribute="top" secondItem="N0m-fG-01L" secondAttribute="bottom" constant="7.5" id="6GX-FL-hxl"/>
                                     <constraint firstItem="8ld-Mw-CSR" firstAttribute="width" secondItem="N0m-fG-01L" secondAttribute="width" multiplier="0.996753" id="8mC-08-7AG"/>
                                     <constraint firstItem="heO-gp-GM9" firstAttribute="width" secondItem="N0m-fG-01L" secondAttribute="width" id="AXI-cS-e5t"/>
                                     <constraint firstItem="N0m-fG-01L" firstAttribute="centerY" secondItem="sKQ-Ww-Qj7" secondAttribute="centerY" constant="-50" id="CVh-Qh-pAD"/>
                                     <constraint firstItem="heO-gp-GM9" firstAttribute="centerX" secondItem="N0m-fG-01L" secondAttribute="centerX" id="EGD-Ii-IEy"/>
                                     <constraint firstItem="HrZ-Nz-Mb0" firstAttribute="width" secondItem="8ld-Mw-CSR" secondAttribute="width" id="EmD-9n-GTR"/>
+                                    <constraint firstItem="RjM-WG-r5A" firstAttribute="width" secondItem="N0m-fG-01L" secondAttribute="width" id="Esn-7w-fK4"/>
+                                    <constraint firstItem="RjM-WG-r5A" firstAttribute="height" secondItem="N0m-fG-01L" secondAttribute="height" id="KdP-CU-OgQ"/>
                                     <constraint firstItem="N0m-fG-01L" firstAttribute="height" secondItem="sKQ-Ww-Qj7" secondAttribute="height" multiplier="0.0415271" id="NpY-o8-YpF"/>
                                     <constraint firstItem="HrZ-Nz-Mb0" firstAttribute="height" secondItem="8ld-Mw-CSR" secondAttribute="height" id="OR4-wq-S74"/>
+                                    <constraint firstItem="RjM-WG-r5A" firstAttribute="top" secondItem="N0m-fG-01L" secondAttribute="bottom" constant="8" id="QGe-HA-IMf"/>
                                     <constraint firstItem="N0m-fG-01L" firstAttribute="top" secondItem="8ld-Mw-CSR" secondAttribute="bottom" constant="8" id="VV5-ol-fs1"/>
                                     <constraint firstItem="8ld-Mw-CSR" firstAttribute="top" secondItem="HrZ-Nz-Mb0" secondAttribute="bottom" constant="8" id="Ypz-70-WJu"/>
+                                    <constraint firstAttribute="bottom" secondItem="heO-gp-GM9" secondAttribute="bottom" constant="20" id="dT1-8y-sld"/>
                                     <constraint firstItem="8ld-Mw-CSR" firstAttribute="centerX" secondItem="N0m-fG-01L" secondAttribute="centerX" id="jMt-NN-dc9"/>
                                     <constraint firstItem="heO-gp-GM9" firstAttribute="height" secondItem="N0m-fG-01L" secondAttribute="height" id="kt7-rf-Q76"/>
                                     <constraint firstItem="N0m-fG-01L" firstAttribute="width" secondItem="sKQ-Ww-Qj7" secondAttribute="width" multiplier="0.754902" id="lsV-G9-P8S"/>
                                     <constraint firstItem="8ld-Mw-CSR" firstAttribute="height" secondItem="N0m-fG-01L" secondAttribute="height" multiplier="1.09677" id="pAi-FZ-oWi"/>
+                                    <constraint firstItem="RjM-WG-r5A" firstAttribute="centerX" secondItem="N0m-fG-01L" secondAttribute="centerX" id="rHW-5C-dVQ"/>
                                     <constraint firstItem="HrZ-Nz-Mb0" firstAttribute="centerX" secondItem="8ld-Mw-CSR" secondAttribute="centerX" id="rxs-82-FGy"/>
                                     <constraint firstItem="N0m-fG-01L" firstAttribute="centerX" secondItem="sKQ-Ww-Qj7" secondAttribute="centerX" id="txo-ix-noC"/>
                                 </constraints>

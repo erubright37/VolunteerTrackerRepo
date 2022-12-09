@@ -81,6 +81,51 @@ class SignInViewController: UIViewController {
         present(alert, animated: true)
     }
     
+    @IBAction func CreateAccountClick(_ sender: UIButton) {
+        guard let email = emailTextField.text, !email.isEmpty,
+              let password = passwordTextField.text, !password.isEmpty
+        else {
+            // show alert
+            return
+        }
+        
+        // Get Auth Instance
+        FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password, completion: { [weak self] _result ,_error in
+            guard let strongSelf = self else {
+                return
+            }
+            
+            guard _error == nil else {
+                // Show acct create
+                FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password, completion: { [weak self] _result ,_error in
+                        guard let strongSelf = self else {
+                            return
+                        }
+                        
+                        guard _error == nil else {
+                            print("Account Creation Failed")
+                            return
+                        }
+                    
+                    strongSelf.emailTextField.text = ""
+                    strongSelf.passwordTextField.text = ""
+                    print("Signed In")
+                    strongSelf.signedIn = true
+                })
+                return
+            }
+            
+            strongSelf.emailTextField.text = ""
+            strongSelf.passwordTextField.text = ""
+            print("Signed In")
+            strongSelf.signedIn = true
+            
+            strongSelf.user = FirebaseAuth.Auth.auth().currentUser
+            strongSelf.uid = strongSelf.user!.uid
+        })
+    }
+    
+    
     @IBAction func SignOutClick(_ sender: UIButton) {
         do {
             try FirebaseAuth.Auth.auth().signOut()

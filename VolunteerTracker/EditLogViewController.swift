@@ -57,6 +57,7 @@ class EditLogViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             return
         }
         
+        let logID = Logs[currentIndex].logID
         var organization = ""
         var supervisor = ""
         var category = ""
@@ -72,9 +73,10 @@ class EditLogViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         if categories[categoryPicker.selectedRow(inComponent: 0)] != nil {
             category = categories[categoryPicker.selectedRow(inComponent: 0)]
         }
+        
         Logs.remove(at: currentIndex)
         
-        Logs.insert(HourLog(title: title, organization: organization, supervisor: supervisor, time: time, date: datePicker.date.description, category: category, skills: skills), at: currentIndex)
+        Logs.insert(HourLog(logID: logID, title: title, organization: organization, supervisor: supervisor, time: time, date: datePicker.date.description, category: category, skills: skills), at: currentIndex)
         
         // Clear UI Elements
         titleText.text = ""
