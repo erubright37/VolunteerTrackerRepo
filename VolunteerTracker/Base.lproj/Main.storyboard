@@ -1269,17 +1269,64 @@
                                     <constraint firstItem="qrv-HP-LaP" firstAttribute="centerX" secondItem="9so-Cc-au8" secondAttribute="centerX" id="V87-Q9-hrz"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ttc-DG-RDU" userLabel="Buttons">
+                                <rect key="frame" x="0.0" y="741" width="414" height="101"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KG8-iU-z44">
+                                        <rect key="frame" x="124" y="10" width="166" height="31"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="gray" title="Add Category">
+                                            <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="AddLogClicked:" destination="nRD-q3-vK0" eventType="touchUpInside" id="Q2Y-FQ-BWl"/>
+                                            <action selector="addCategoryClick:" destination="E3a-5y-EdE" eventType="touchUpInside" id="kvH-sc-47I"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.69803923369999998" green="0.9098039269" blue="0.96470588450000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstItem="KG8-iU-z44" firstAttribute="top" secondItem="ttc-DG-RDU" secondAttribute="top" constant="10" id="H6t-Hp-qdD"/>
+                                    <constraint firstItem="KG8-iU-z44" firstAttribute="centerX" secondItem="ttc-DG-RDU" secondAttribute="centerX" id="Lfx-2U-M8R"/>
+                                    <constraint firstItem="KG8-iU-z44" firstAttribute="width" secondItem="ttc-DG-RDU" secondAttribute="width" multiplier="0.4" id="VvK-Lh-zJJ"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="wvg-4K-Cu4">
+                                <rect key="frame" x="3" y="70.5" width="408" height="667.5"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cat_cell" id="bH4-ee-GE6">
+                                        <rect key="frame" x="0.0" y="44.5" width="408" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bH4-ee-GE6" id="Chv-CG-eZB">
+                                            <rect key="frame" x="0.0" y="0.0" width="408" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="HMU-Hs-HNY"/>
                         <color key="backgroundColor" red="0.45217253149999997" green="0.67507282940000002" blue="0.73015309340000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="9so-Cc-au8" firstAttribute="leading" secondItem="HMU-Hs-HNY" secondAttribute="leading" id="6z1-uF-hrI"/>
+                            <constraint firstItem="wvg-4K-Cu4" firstAttribute="leading" secondItem="HMU-Hs-HNY" secondAttribute="leading" constant="3" id="BQB-40-diR"/>
+                            <constraint firstItem="ttc-DG-RDU" firstAttribute="height" secondItem="ShC-zt-JPQ" secondAttribute="height" multiplier="0.12" id="Cnk-wl-2s6"/>
+                            <constraint firstItem="HMU-Hs-HNY" firstAttribute="trailing" secondItem="wvg-4K-Cu4" secondAttribute="trailing" constant="3" id="Ib2-v2-fzQ"/>
+                            <constraint firstItem="ttc-DG-RDU" firstAttribute="leading" secondItem="HMU-Hs-HNY" secondAttribute="leading" id="Nfb-dN-xDU"/>
+                            <constraint firstItem="ttc-DG-RDU" firstAttribute="trailing" secondItem="HMU-Hs-HNY" secondAttribute="trailing" id="QV0-yf-F8G"/>
+                            <constraint firstItem="HMU-Hs-HNY" firstAttribute="bottom" secondItem="ttc-DG-RDU" secondAttribute="bottom" id="Z6Z-Xi-i7f"/>
+                            <constraint firstItem="wvg-4K-Cu4" firstAttribute="top" secondItem="9so-Cc-au8" secondAttribute="bottom" constant="3" id="jJp-2u-5it"/>
                             <constraint firstItem="9so-Cc-au8" firstAttribute="height" secondItem="ShC-zt-JPQ" secondAttribute="height" multiplier="0.08" id="mni-jc-RZ9"/>
                             <constraint firstItem="9so-Cc-au8" firstAttribute="trailing" secondItem="HMU-Hs-HNY" secondAttribute="trailing" id="nfB-6z-jVf"/>
+                            <constraint firstItem="ttc-DG-RDU" firstAttribute="top" secondItem="wvg-4K-Cu4" secondAttribute="bottom" constant="3" id="uH2-Nl-wLU"/>
                             <constraint firstItem="9so-Cc-au8" firstAttribute="top" secondItem="HMU-Hs-HNY" secondAttribute="top" constant="-44" id="vMl-Gp-kkE"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Yef-AK-Xgz"/>
+                    <connections>
+                        <outlet property="catTableView" destination="wvg-4K-Cu4" id="uaM-Fx-nJ5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JFT-Mt-xGZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="fBP-QT-kqh" userLabel="Exit" sceneMemberID="exit"/>
