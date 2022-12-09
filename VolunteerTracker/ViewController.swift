@@ -60,9 +60,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     
                     if let logs = snapshot.value as? [String : Any] {
                         for item in logs {
-                            var skill = [String]()
-                            guard let log = item.value as? [String : Any],
-                                  let logPath = log["ID"] as? String,
+                            guard let log = item.value as? [String : Any]
+                            else { return }
+                            
+                            guard let logPath = log["ID"] as? String,
                                   let title = log["title"] as? String,
                                   let organization = log["organization"] as? String,
                                   let supervisor = log["supervisor"] as? String,
@@ -71,12 +72,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                                   let time = log["time"] as? String
                             else { return }
                             
-                            if let skills = log["skills"] as? [Any] {
-                                skill = (skills as? [String])!
+                            var skill = [String]()
+                            if let skills = log["Skills"] as? [String: Any] {
+                                for thing in skills {
+                                    let skillToAdd = thing.value as! String
+                                    skill.append(skillToAdd)
+                                }
                             }
+                            
                             let logIndex = Int(logPath)
-                                
-                            print(log)
                             
                             self.volunteerLogs.append(HourLog(logID: logIndex!, title: title, organization: organization, supervisor: supervisor, time: Double(time)!, date: date, category: category, skills: skill))
                             
@@ -201,10 +205,42 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBAction func unwindfromEditLog(unwindSegue: UIStoryboardSegue) {
         if let sourceViewController = unwindSegue.source as? EditLogViewController {
             volunteerLogs = sourceViewController.Logs
+            
+            var logPath = ""
+            for log in sourceViewController.Logs {
+                
+                        if log.logID <= 100 {
+                            logPath = "log\(log.logID)"
+                        }else if log.logID >= 10 {
+                            logPath = "log0\(log.logID)"
+                        } else {
+                            logPath = "log00\(log.logID)"
+                        }
+                
+                let reference  = Database.database().reference().child("Users").child(uid).child("Logs").child(logPath)
+                let logDict: [String : [String : String]] = [logPath: ["ID": log.logID.description, "title": log.title, "organization": log.organization, "supervisor": log.supervisor, "time": log.time.description, "date": log.date.description, "category": log.category]]
+                
+                reference.updateChildValues(logDict)
+                
+                let skillRef = reference.child(logPath).child("Skills")
+                var skillIndex = 0
+                var skillDict = [String: String]()
+                for skill in log.skills {
+                    skillDict["Skill\(skillIndex)"] = skill
+                    skillIndex += 1
+                }
+                
+                skillRef.setValue(skillDict) {
+                  (error:Error?, ref:DatabaseReference) in
+                    if let error = error {
+                      print("Data could not be saved: \(error).")
+                    } else {
+                      print("Data saved successfully!")
+                    }
+                  }
+            }
         }
-        
-        // Reset view
-        tableview.reloadData()
+
     }
     
     // Unwind from back button on New Log Screen
@@ -229,7 +265,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 
                 reference.setValue(logDict)
                 
-                let skillRef = reference.child("Skills")
+                let skillRef = reference.child(logPath).child("Skills")
                 var skillIndex = 0
                 var skillDict = [String: String]()
                 for skill in log.skills {
