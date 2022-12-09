@@ -25,10 +25,6 @@ class HourLogViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        categories.append("Tutoring")
-        categories.append("Serving Food")
-        categories.append("Outdoors")
         
         categoryPicker.delegate = self
         categoryPicker.dataSource = self
@@ -126,15 +122,5 @@ class HourLogViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return categories[row]
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

@@ -29,10 +29,6 @@ class EditLogViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        categories.append("Tutoring")
-        categories.append("Serving Food")
-        categories.append("Outdoors")
         
         categoryPicker.delegate = self
         categoryPicker.dataSource = self

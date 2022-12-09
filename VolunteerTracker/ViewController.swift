@@ -19,6 +19,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var logToSend: HourLog!
     var currentIndex = 0
     var lastIndex = 0
+    var categories = [String]()
     
     let ref = Database.database().reference(withPath: "Users")
     var userRef: DatabaseReference!
@@ -41,6 +42,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if signedIn == false {
             volunteerLogs.removeAll()
             tableview.reloadData()
+            
+            categories.append("Tutoring")
+            categories.append("Serving Food")
+            categories.append("Clean Up")
         }
         
         if let user = FirebaseAuth.Auth.auth().currentUser {
@@ -53,10 +58,52 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             if let user = FirebaseAuth.Auth.auth().currentUser {
                 uid = user.uid
-                userRef = ref.child(uid).child("Logs")
+                userRef = ref.child(uid)
                 signedIn = true
                 
-                userRef.observe(.childAdded, with: { (snapshot) in
+                userRef.getData(completion: { error, snapshot in
+                    guard error == nil else {
+                      print(error!.localizedDescription)
+                      return;
+                    }
+                    
+                    if let entries = snapshot?.value as? [String : Any] {
+                        for entry in entries {
+                            if entry.key == "Goal" {
+                                guard let goal = entry.value as? [String : Any]
+                                else { return }
+                                for item in goal {
+                                    self.goalHours = item.value as! Double
+                                }
+                            }
+                            
+                            if entry.key == "Progress" {
+                                guard let progress = entry.value as? [String : Any]
+                                else { return }
+                                for item in progress {
+                                    self.totalHours = item.value as! Double
+                                }
+                            }
+                            
+                            if entry.key == "Cat" {
+                                guard let cat = entry.value as? [String: Any]
+                                else { return }
+                                for category in cat {
+                                    guard let cats = category.value as? [String : Any]
+                                    else { return }
+                                    for item in cats {
+                                        let categoryToAdd = item.value as! String
+                                        self.categories.append(categoryToAdd)
+                                    }
+                                }
+                            }
+                        }
+                        
+                    }
+                    
+                });
+                
+                userRef.child("Logs").observe(.childAdded, with: { (snapshot) in
                     
                     if let logs = snapshot.value as? [String : Any] {
                         for item in logs {
@@ -172,6 +219,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let destination = segue.destination as? HourLogViewController
             //destination?.Logs = volunteerLogs
             destination?.logIndex = lastIndex
+            destination?.categories = categories
         }
         
         if segue.identifier == "toEditLogScreen" {
@@ -179,6 +227,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             destination?.Logs = volunteerLogs
             destination?.currentLog = logToSend
             destination?.currentIndex = currentIndex
+            destination?.categories = categories
+            destination?.uid = uid
+        }
+        
+        if segue.identifier == "toSettngsScreen" {
+            let destination = segue.destination as? SettingsViewController
+            destination?.currentGoal = goalHours
+            destination?.currentProgress = totalHours
+            destination?.categories = categories
+            destination?.volunteerLogs = volunteerLogs
             destination?.uid = uid
         }
     }
@@ -297,6 +355,45 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
     // Unwind from back button (doing nothing)
+    @IBAction func unwindfromSettings(unwindSegue: UIStoryboardSegue) {
+        if let sourceViewController = unwindSegue.source as? SettingsViewController {
+            volunteerLogs = sourceViewController.volunteerLogs
+            categories = sourceViewController.categories
+            goalHours = sourceViewController.currentGoal
+            totalHours = sourceViewController.currentProgress
+            
+            let reference  = Database.database().reference().child("Users").child(uid)
+            
+            let goalDict: [String: Double] = ["Goal": goalHours]
+            reference.child("Goal").setValue(goalDict)
+            
+            let progressDict: [String: Double] = ["Progress": totalHours]
+            reference.child("Progress").setValue(progressDict)
+            
+            let catRef = reference.child("Cat").child("Categories")
+            var catIndex = 0
+            var catDict = [String: String]()
+            for cat in categories {
+                catDict["Skill\(catIndex)"] = cat
+                catIndex += 1
+            }
+            
+            catRef.setValue(catDict) {
+              (error:Error?, ref:DatabaseReference) in
+                if let error = error {
+                  print("Data could not be saved: \(error).")
+                } else {
+                  print("Data saved successfully!")
+                }
+              }
+            
+        }
+        
+        // Reset view
+        tableview.reloadData()
+    }
+    
+    // Unwind from back button (doing nothing)
     @IBAction func unwindfromBack(unwindSegue: UIStoryboardSegue) {
         if let sourceViewController = unwindSegue.source as? SignInViewController {
             signedIn = sourceViewController.signedIn
@@ -306,8 +403,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // Reset view
         tableview.reloadData()
     }
-    
-    
     
 }
 

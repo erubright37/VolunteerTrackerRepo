@@ -21,6 +21,7 @@
 		5D6616742937ECC8004F9752 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6616732937ECC8004F9752 /* SettingsViewController.swift */; };
 		5D6616762939A2E2004F9752 /* HourLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6616752939A2E2004F9752 /* HourLog.swift */; };
 		5D661678293FB658004F9752 /* EditLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D661677293FB658004F9752 /* EditLogViewController.swift */; };
+		5D66167A2943B36F004F9752 /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6616792943B36F004F9752 /* CategoriesViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		5D6616732937ECC8004F9752 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		5D6616752939A2E2004F9752 /* HourLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourLog.swift; sourceTree = "<group>"; };
 		5D661677293FB658004F9752 /* EditLogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditLogViewController.swift; sourceTree = "<group>"; };
+		5D6616792943B36F004F9752 /* CategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
 		60023A386617D572D8111ECC /* Pods-VolunteerTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VolunteerTracker.release.xcconfig"; path = "Target Support Files/Pods-VolunteerTracker/Pods-VolunteerTracker.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -89,6 +91,7 @@
 				5D4A9AB729368F890040F70A /* AppDelegate.swift */,
 				5D6616732937ECC8004F9752 /* SettingsViewController.swift */,
 				5D4A9AB929368F890040F70A /* SceneDelegate.swift */,
+				5D6616792943B36F004F9752 /* CategoriesViewController.swift */,
 				5D4A9ABB29368F890040F70A /* ViewController.swift */,
 				5D6616712937E207004F9752 /* HourLogViewController.swift */,
 				5D661677293FB658004F9752 /* EditLogViewController.swift */,
@@ -232,6 +235,7 @@
 				5D4A9ABC29368F890040F70A /* ViewController.swift in Sources */,
 				5D4A9AC229368F890040F70A /* VolunteerTracker.xcdatamodeld in Sources */,
 				5D6616742937ECC8004F9752 /* SettingsViewController.swift in Sources */,
+				5D66167A2943B36F004F9752 /* CategoriesViewController.swift in Sources */,
 				5D4A9AB829368F890040F70A /* AppDelegate.swift in Sources */,
 				5D4A9ACF2936FAE20040F70A /* SignInViewController.swift in Sources */,
 				5D661678293FB658004F9752 /* EditLogViewController.swift in Sources */,
