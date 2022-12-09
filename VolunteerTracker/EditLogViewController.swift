@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseDatabase
+import Firebase
 
 class EditLogViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDelegate, UITableViewDataSource {
     
@@ -14,6 +16,7 @@ class EditLogViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     var currentIndex = 0
     var categories = [String]()
     var skills = [String]()
+    var uid = ""
 
     @IBOutlet weak var titleText: UITextField!
     @IBOutlet weak var organizationText: UITextField!
@@ -90,6 +93,18 @@ class EditLogViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     }
     
     @IBAction func DeleteLogClicked(_ sender: UIButton) {
+        var logPath = ""
+        if Logs[currentIndex].logID <= 100 {
+            logPath = "log\(Logs[currentIndex].logID)"
+        }else if Logs[currentIndex].logID >= 10 {
+            logPath = "log0\(Logs[currentIndex].logID)"
+        } else {
+            logPath = "log00\(Logs[currentIndex].logID)"
+        }
+        
+        let reference  = Database.database().reference().child("Users").child(uid).child("Logs").child(logPath)
+        reference.removeValue()
+        
         Logs.remove(at: currentIndex)
         
         // Clear UI Elements

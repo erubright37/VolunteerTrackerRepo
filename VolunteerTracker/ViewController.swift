@@ -179,6 +179,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             destination?.Logs = volunteerLogs
             destination?.currentLog = logToSend
             destination?.currentIndex = currentIndex
+            destination?.uid = uid
         }
     }
     
@@ -205,6 +206,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBAction func unwindfromEditLog(unwindSegue: UIStoryboardSegue) {
         if let sourceViewController = unwindSegue.source as? EditLogViewController {
             volunteerLogs = sourceViewController.Logs
+            tableview.reloadData()
             
             var logPath = ""
             for log in sourceViewController.Logs {
