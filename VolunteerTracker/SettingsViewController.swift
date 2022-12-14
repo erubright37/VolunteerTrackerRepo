@@ -14,6 +14,7 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var currentGoalLabel: UILabel!
     @IBOutlet weak var currentProgressLabel: UILabel!
     
+    var reference: DatabaseReference!
     var currentGoal: Double = 0.0
     var currentProgress: Double = 0.0
     var categories = [String]()
@@ -71,8 +72,18 @@ class SettingsViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         alert.addAction(UIAlertAction(title: "Reset", style: .default, handler: { (action:UIAlertAction) in
             self.volunteerLogs.removeAll()
-            let reference  = Database.database().reference().child("Users").child(self.uid)
+            let reference  = Database.database().reference().child("Users").child(self.uid).child("Logs")
             reference.removeValue()
+            
+            let progressReference  = Database.database().reference().child("Users").child(self.uid)
+            let progressDict: [String: Double] = ["Progress": 0]
+            progressReference.updateChildValues(progressDict)
+            
+            let goalDict: [String: Double] = ["Goal": 10]
+            progressReference.updateChildValues(goalDict)
+            
+            
+            
         }))
         present(alert, animated: true)
     }

@@ -232,7 +232,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
-    // Send data through segue to edit screen
+    // Send data through segues to various screens
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toNewLogScreen" {
             let destination = segue.destination as? HourLogViewController
@@ -250,7 +250,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             destination?.uid = uid
         }
         
-        if segue.identifier == "toSettngsScreen" {
+        if segue.identifier == "toSettingsScreen" {
             let destination = segue.destination as? SettingsViewController
             destination?.currentGoal = goalHours
             destination?.currentProgress = totalHours
@@ -262,6 +262,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if segue.identifier == "toSignInScreen" {
             let destination = segue.destination as? SignInViewController
             destination?.signedIn = signedIn
+            
         }
     }
     
