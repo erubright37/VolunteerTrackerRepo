@@ -97,5 +97,14 @@ class SettingsViewController: UIViewController {
             destination?.categories = categories
         }
     }
+    
+    // Unwind from back button
+    @IBAction func unwindfromBack(unwindSegue: UIStoryboardSegue) {
+        if let sourceViewController = unwindSegue.source as? CategoriesViewController {
+            categories = sourceViewController.categories
+        }
+        
+
+    }
 
 }
