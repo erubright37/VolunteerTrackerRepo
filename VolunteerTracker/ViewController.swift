@@ -12,7 +12,7 @@ import Firebase
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     // Variables
-    var goalHours: Double = 10.0
+    var goalHours: Double = 0.0
     var progress: Float = 0.0
     var totalHours: Double = 0.0
     var volunteerLogs = [HourLog]()
@@ -42,6 +42,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if signedIn == false {
             volunteerLogs.removeAll()
             tableview.reloadData()
+            
+            goalHours = 10.0
             
             categories.append("Tutoring")
             categories.append("Serving Food")
@@ -214,6 +216,22 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
+    // Segue to Edit screen
+    @IBAction func SettingsScreenClick(_ sender: UIButton) {
+        if signedIn == true {
+            self.performSegue(withIdentifier: "toSettingsScreen", sender: self)
+        } else {
+            let alert = UIAlertController(title: "Please Sign In to Add New Log", message: "You must sign in before the log can be changed.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Canel", style: .cancel))
+            alert.addAction(UIAlertAction(title: "Sign In", style: .default, handler: { (action:UIAlertAction) in
+                self.performSegue(withIdentifier: "toSignInScreen", sender: self)
+
+            }))
+
+            present(alert, animated: true)
+        }
+    }
+    
     // Send data through segue to edit screen
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toNewLogScreen" {
@@ -239,6 +257,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             destination?.categories = categories
             destination?.volunteerLogs = volunteerLogs
             destination?.uid = uid
+        }
+        
+        if segue.identifier == "toSignInScreen" {
+            let destination = segue.destination as? SignInViewController
+            destination?.signedIn = signedIn
         }
     }
     
@@ -343,6 +366,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     }
                   }
             }
+            
+            tableview.reloadData()
         }
         // Goal and Total Hours
         self.CalculateSum()
@@ -392,6 +417,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         // Reset view
         tableview.reloadData()
+        
+        // Goal and Total Hours
+        self.CalculateSum()
+        if self.totalHours > self.goalHours {
+            self.progress = 1.0
+        } else {
+            self.progress = Float(self.totalHours)/Float(self.goalHours)
+        }
+        self.goalProgressBar.setProgress(Float(self.progress), animated: true)
+        self.goalLabel.text = "Goal Progress: \(self.totalHours)/\(self.goalHours)"
     }
     
     // Unwind from back button (doing nothing)

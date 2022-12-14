@@ -41,7 +41,7 @@
                                             <color key="baseForegroundColor" white="0.25" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </buttonConfiguration>
                                         <connections>
-                                            <segue destination="RlA-cH-a62" kind="show" identifier="toSettngsScreen" id="3Y1-Mr-W11"/>
+                                            <action selector="SettingsScreenClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Qy3-gi-eup"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -181,6 +181,7 @@
                         <outlet property="goalProgressBar" destination="n7f-j7-FMw" id="NwR-Id-2g1"/>
                         <outlet property="tableview" destination="OQe-hV-56i" id="3FG-ty-2xR"/>
                         <segue destination="c2K-Nk-uPJ" kind="show" identifier="toEditLogScreen" id="ZD6-So-ilF"/>
+                        <segue destination="RlA-cH-a62" kind="show" identifier="toSettingsScreen" id="zDK-k3-7Pa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
