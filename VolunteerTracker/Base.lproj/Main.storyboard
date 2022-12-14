@@ -546,7 +546,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RcQ-ng-MWa" userLabel="Title">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="67.5"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="67.5"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vbo-NY-Y8t">
                                         <rect key="frame" x="5" y="18" width="87" height="31"/>
@@ -577,16 +577,16 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ru8-6I-FKf">
-                                <rect key="frame" x="3" y="70.5" width="408" height="746.5"/>
+                                <rect key="frame" x="3" y="114.5" width="408" height="702.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="sfg-H5-u5z">
-                                        <rect key="frame" x="3" y="3" width="402" height="740.5"/>
+                                        <rect key="frame" x="3" y="3" width="402" height="696.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TmT-oT-5F4">
-                                                <rect key="frame" x="0.0" y="0.0" width="402" height="122.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="402" height="115"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bGc-CB-Ocm">
-                                                        <rect key="frame" x="10" y="10" width="382" height="61"/>
+                                                        <rect key="frame" x="10" y="10" width="382" height="57.5"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="gray" title="Change Volunteer Goal">
                                                             <color key="baseForegroundColor" white="0.25" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -596,7 +596,7 @@
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Goal: 10 Hours" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Y34-6U-EFa">
-                                                        <rect key="frame" x="10" y="81" width="382" height="31.5"/>
+                                                        <rect key="frame" x="10" y="77.5" width="382" height="27.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -615,10 +615,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DHH-Ae-qxx">
-                                                <rect key="frame" x="0.0" y="123.5" width="402" height="122.5"/>
+                                                <rect key="frame" x="0.0" y="116" width="402" height="115.5"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DEc-M6-MOZ">
-                                                        <rect key="frame" x="10" y="10" width="382" height="61.5"/>
+                                                        <rect key="frame" x="10" y="10" width="382" height="58"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="gray" title="Reset Volunteer Goal Progress">
                                                             <color key="baseForegroundColor" white="0.25" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -628,7 +628,7 @@
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Progress: 0 Hours" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="JJi-Ba-zY4">
-                                                        <rect key="frame" x="10" y="81.5" width="382" height="31"/>
+                                                        <rect key="frame" x="10" y="78" width="382" height="27.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -647,10 +647,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j9q-Ki-19c">
-                                                <rect key="frame" x="0.0" y="247" width="402" height="122.5"/>
+                                                <rect key="frame" x="0.0" y="232.5" width="402" height="115"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tT9-ux-Mp4">
-                                                        <rect key="frame" x="10" y="10" width="382" height="61.5"/>
+                                                        <rect key="frame" x="10" y="10" width="382" height="57.5"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="gray" title="Edit Volunteer Categories">
                                                             <color key="baseForegroundColor" white="0.25" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -669,10 +669,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yPf-FK-Rpe">
-                                                <rect key="frame" x="0.0" y="370.5" width="402" height="123"/>
+                                                <rect key="frame" x="0.0" y="348.5" width="402" height="115.5"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ux-OJ-wYX">
-                                                        <rect key="frame" x="10" y="10" width="382" height="61.5"/>
+                                                        <rect key="frame" x="10" y="10" width="382" height="58"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="gray" title="Reset Volunteer Log">
                                                             <color key="baseForegroundColor" white="0.25" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -691,11 +691,11 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FAC-kG-ucQ">
-                                                <rect key="frame" x="0.0" y="494.5" width="402" height="122.5"/>
+                                                <rect key="frame" x="0.0" y="465" width="402" height="115"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OVH-Nk-gzb">
-                                                <rect key="frame" x="0.0" y="618" width="402" height="122.5"/>
+                                                <rect key="frame" x="0.0" y="581" width="402" height="115.5"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             </view>
                                         </subviews>
@@ -717,7 +717,7 @@
                             <constraint firstItem="5wK-Sl-jLb" firstAttribute="trailing" secondItem="ru8-6I-FKf" secondAttribute="trailing" constant="3" id="GOx-RR-lQv"/>
                             <constraint firstItem="ru8-6I-FKf" firstAttribute="top" secondItem="RcQ-ng-MWa" secondAttribute="bottom" constant="3" id="LNh-gi-TQT"/>
                             <constraint firstItem="5wK-Sl-jLb" firstAttribute="bottom" secondItem="ru8-6I-FKf" secondAttribute="bottom" constant="25" id="R5Q-Fl-1HB"/>
-                            <constraint firstItem="RcQ-ng-MWa" firstAttribute="top" secondItem="5wK-Sl-jLb" secondAttribute="top" constant="-44" id="cQ8-dD-vQP"/>
+                            <constraint firstItem="RcQ-ng-MWa" firstAttribute="top" secondItem="5wK-Sl-jLb" secondAttribute="top" id="cQ8-dD-vQP"/>
                             <constraint firstItem="RcQ-ng-MWa" firstAttribute="leading" secondItem="5wK-Sl-jLb" secondAttribute="leading" id="etA-fy-fgb"/>
                             <constraint firstItem="RcQ-ng-MWa" firstAttribute="height" secondItem="bXL-QX-a4L" secondAttribute="height" multiplier="0.08" id="g6X-kl-Dx3"/>
                             <constraint firstItem="ru8-6I-FKf" firstAttribute="leading" secondItem="5wK-Sl-jLb" secondAttribute="leading" constant="3" id="rrq-X4-NDR"/>
@@ -1244,7 +1244,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9so-Cc-au8" userLabel="Title">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="67.5"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="67.5"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="06F-dP-5c9">
                                         <rect key="frame" x="5" y="18" width="87" height="31"/>
@@ -1297,7 +1297,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="wvg-4K-Cu4">
-                                <rect key="frame" x="3" y="70.5" width="408" height="667.5"/>
+                                <rect key="frame" x="3" y="114.5" width="408" height="623.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cat_cell" id="bH4-ee-GE6">
@@ -1325,7 +1325,7 @@
                             <constraint firstItem="9so-Cc-au8" firstAttribute="height" secondItem="ShC-zt-JPQ" secondAttribute="height" multiplier="0.08" id="mni-jc-RZ9"/>
                             <constraint firstItem="9so-Cc-au8" firstAttribute="trailing" secondItem="HMU-Hs-HNY" secondAttribute="trailing" id="nfB-6z-jVf"/>
                             <constraint firstItem="ttc-DG-RDU" firstAttribute="top" secondItem="wvg-4K-Cu4" secondAttribute="bottom" constant="3" id="uH2-Nl-wLU"/>
-                            <constraint firstItem="9so-Cc-au8" firstAttribute="top" secondItem="HMU-Hs-HNY" secondAttribute="top" constant="-44" id="vMl-Gp-kkE"/>
+                            <constraint firstItem="9so-Cc-au8" firstAttribute="top" secondItem="HMU-Hs-HNY" secondAttribute="top" id="vMl-Gp-kkE"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Yef-AK-Xgz"/>
