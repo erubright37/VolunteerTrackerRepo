@@ -16,9 +16,21 @@ class SignInViewController: UIViewController {
     
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var backBtn: UIButton!
+    @IBOutlet weak var signInBtn: UIButton!
+    @IBOutlet weak var createAcctBtn: UIButton!
+    @IBOutlet weak var signOutBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if signedIn == true {
+            signInBtn.isHidden = true
+            createAcctBtn.isHidden = true
+        } else {
+            signOutBtn.isHidden = true
+        }
+        
         emailTextField.placeholder = "Email Address"
         passwordTextField.placeholder = "Password"
         passwordTextField.isSecureTextEntry = true
@@ -47,11 +59,16 @@ class SignInViewController: UIViewController {
             
             strongSelf.emailTextField.text = ""
             strongSelf.passwordTextField.text = ""
-            print("Signed In")
             strongSelf.signedIn = true
+            
+            strongSelf.signInBtn.isHidden = true
+            strongSelf.createAcctBtn.isHidden = true
+            strongSelf.signOutBtn.isHidden = false
             
             strongSelf.user = FirebaseAuth.Auth.auth().currentUser
             strongSelf.uid = strongSelf.user!.uid
+            
+            strongSelf.backBtn.sendActions(for: .touchUpInside)
         })
         
     }
@@ -72,8 +89,13 @@ class SignInViewController: UIViewController {
                 
                 strongSelf.emailTextField.text = ""
                 strongSelf.passwordTextField.text = ""
-                print("Signed In")
                 strongSelf.signedIn = true
+                
+                strongSelf.signInBtn.isHidden = true
+                strongSelf.createAcctBtn.isHidden = true
+                strongSelf.signOutBtn.isHidden = false
+                
+                strongSelf.backBtn.sendActions(for: .touchUpInside)
             })
         }))
         alert.addAction(UIAlertAction(title: "No", style: .destructive, handler: { _ in
@@ -109,19 +131,25 @@ class SignInViewController: UIViewController {
                     
                     strongSelf.emailTextField.text = ""
                     strongSelf.passwordTextField.text = ""
-                    print("Signed In")
+                    
                     strongSelf.signedIn = true
+                    strongSelf.signInBtn.isHidden = true
+                    strongSelf.createAcctBtn.isHidden = true
+                    strongSelf.signOutBtn.isHidden = false
+                    
+                    strongSelf.backBtn.sendActions(for: .touchUpInside)
                 })
                 return
             }
             
             strongSelf.emailTextField.text = ""
             strongSelf.passwordTextField.text = ""
-            print("Signed In")
+
             strongSelf.signedIn = true
-            
             strongSelf.user = FirebaseAuth.Auth.auth().currentUser
             strongSelf.uid = strongSelf.user!.uid
+            
+            strongSelf.backBtn.sendActions(for: .touchUpInside)
         })
     }
     
@@ -129,8 +157,11 @@ class SignInViewController: UIViewController {
     @IBAction func SignOutClick(_ sender: UIButton) {
         do {
             try FirebaseAuth.Auth.auth().signOut()
-            print("Signed Out")
             signedIn = false
+            
+            signInBtn.isHidden = false
+            createAcctBtn.isHidden = false
+            signOutBtn.isHidden = true
             
             uid = ""
         }

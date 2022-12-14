@@ -859,8 +859,12 @@
                     </view>
                     <navigationItem key="navigationItem" id="e7i-5I-QJ7"/>
                     <connections>
+                        <outlet property="backBtn" destination="ZLV-2p-hAW" id="JI8-ob-Phl"/>
+                        <outlet property="createAcctBtn" destination="RjM-WG-r5A" id="CyD-BG-DXU"/>
                         <outlet property="emailTextField" destination="HrZ-Nz-Mb0" id="Xo5-SV-y3z"/>
                         <outlet property="passwordTextField" destination="8ld-Mw-CSR" id="Fol-Ei-7qr"/>
+                        <outlet property="signInBtn" destination="N0m-fG-01L" id="fbb-Kj-ucp"/>
+                        <outlet property="signOutBtn" destination="heO-gp-GM9" id="yk4-7n-4Cb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hPM-65-XpI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
