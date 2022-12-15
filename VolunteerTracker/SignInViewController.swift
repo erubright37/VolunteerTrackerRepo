@@ -118,8 +118,8 @@ class SignInViewController: UIViewController {
             })
         }))
         alert.addAction(UIAlertAction(title: "No", style: .destructive, handler: { _ in
-            strongSelf.emailTextField.text = ""
-            strongSelf.passwordTextField.text = ""
+           self.emailTextField.text = ""
+           self.passwordTextField.text = ""
         }))
         present(alert, animated: true)
     }
