@@ -52,9 +52,28 @@ class SignInViewController: UIViewController {
             }
             
             guard _error == nil else {
-                // Show acct create
-                strongSelf.CreateAccount(email: email, password: password)
-                return
+                print(_error?.localizedDescription)
+                
+                if _error?.localizedDescription == "The password is invalid or the user does not have a password." {
+                    // Wrong password Alert
+                    let passAlert = UIAlertController(title: "Wrong Password", message: "The password you entered in incorrect. Please try again.", preferredStyle: .alert)
+                    passAlert.addAction(UIAlertAction(title: "Okay", style: .destructive, handler: { _ in
+                        
+                        strongSelf.passwordTextField.text = ""
+                    }))
+                    strongSelf.present(passAlert, animated: true)
+                    return
+                } else if (_error?.localizedDescription == "There is no user record corresponding to this identifier. The user may have been deleted."){
+                    // Show acct create
+                    strongSelf.CreateAccount(email: email, password: password)
+                    return
+                } else {
+                    let passAlert = UIAlertController(title: "Sign In Error", message: "There was an error when attempting to sign in. Please try again.", preferredStyle: .alert)
+                    passAlert.addAction(UIAlertAction(title: "Okay", style: .destructive, handler: { _ in
+                    }))
+                    strongSelf.present(passAlert, animated: true)
+                    return
+                }
             }
             
             strongSelf.emailTextField.text = ""
@@ -99,6 +118,8 @@ class SignInViewController: UIViewController {
             })
         }))
         alert.addAction(UIAlertAction(title: "No", style: .destructive, handler: { _ in
+            strongSelf.emailTextField.text = ""
+            strongSelf.passwordTextField.text = ""
         }))
         present(alert, animated: true)
     }
