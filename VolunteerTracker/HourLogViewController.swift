@@ -10,7 +10,6 @@ import UIKit
 class HourLogViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDelegate, UITableViewDataSource {
     
     var Logs = [HourLog]()
-    var newLogs = [HourLog]()
     var categories = [String]()
     var skills = [String]()
     var logIndex = 0
@@ -22,6 +21,7 @@ class HourLogViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var categoryPicker: UIPickerView!
     @IBOutlet weak var skillTableview: UITableView!
+    @IBOutlet weak var backBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,7 +63,6 @@ class HourLogViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         }
         
         Logs.append(HourLog(logID: logIndex, title: title, organization: organization, supervisor: supervisor, time: time, date: datePicker.date.description, category: category, skills: skills))
-        //newLogs.append(HourLog(logID: logID, title: title, organization: organization, supervisor: supervisor, time: time, date: datePicker.date.description, category: category, skills: skills))
         
         // Clear UI Elements
         titleText.text = ""
@@ -73,6 +72,8 @@ class HourLogViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         skills.removeAll()
         skillTableview.reloadData()
         logIndex += 1
+        
+        backBtn.sendActions(for: .touchUpInside)
     }
     
     // MARK: - Table view data source
@@ -109,6 +110,7 @@ class HourLogViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             self.skillTableview.reloadData()
         }))
         present(alert, animated: true)
+        
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {

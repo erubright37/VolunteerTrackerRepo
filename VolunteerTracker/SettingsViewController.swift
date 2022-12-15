@@ -19,6 +19,7 @@ class SettingsViewController: UIViewController {
     var currentProgress: Double = 0.0
     var categories = [String]()
     var volunteerLogs = [HourLog]()
+    var sortedBy = ""
     var uid = ""
     
 
@@ -86,6 +87,19 @@ class SettingsViewController: UIViewController {
             
         }))
         present(alert, animated: true)
+    }
+    
+    @IBAction func SortLogClick(_ sender: UIButton) {
+        switch sender.tag {
+        case 0:
+            sortedBy = "Title"
+        case 1:
+            sortedBy = "Hours"
+        case 2:
+            sortedBy = "None"
+        default:
+            sortedBy = "None"
+        }
     }
     
     

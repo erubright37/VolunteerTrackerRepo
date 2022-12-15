@@ -383,24 +383,10 @@
                                             <action selector="AddLogClicked:" destination="nRD-q3-vK0" eventType="touchUpInside" id="HAI-pk-lvs"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fex-pX-gEE">
-                                        <rect key="frame" x="10" y="10" width="163" height="31"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="gray" title="Cancel">
-                                            <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </buttonConfiguration>
-                                        <connections>
-                                            <segue destination="f48-V9-9D4" kind="unwind" unwindAction="unwindfromBackWithUnwindSegue:" id="Zsi-ml-9jM"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.69803923369999998" green="0.9098039269" blue="0.96470588450000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
-                                    <constraint firstItem="fex-pX-gEE" firstAttribute="width" secondItem="M8h-A1-Zjp" secondAttribute="width" multiplier="0.4" id="010-vj-vT4"/>
-                                    <constraint firstItem="fex-pX-gEE" firstAttribute="height" secondItem="aqO-u4-eDU" secondAttribute="height" id="3AZ-6X-6kw"/>
-                                    <constraint firstItem="fex-pX-gEE" firstAttribute="top" secondItem="M8h-A1-Zjp" secondAttribute="top" constant="10" id="9Ao-nA-4Nv"/>
                                     <constraint firstItem="aqO-u4-eDU" firstAttribute="top" secondItem="M8h-A1-Zjp" secondAttribute="top" constant="10" id="ED5-gH-3wR"/>
-                                    <constraint firstItem="fex-pX-gEE" firstAttribute="leading" secondItem="M8h-A1-Zjp" secondAttribute="leading" constant="10" id="Kdb-lr-yXB"/>
                                     <constraint firstItem="aqO-u4-eDU" firstAttribute="width" secondItem="M8h-A1-Zjp" secondAttribute="width" multiplier="0.4" id="Sc8-3o-m0y"/>
                                     <constraint firstAttribute="trailing" secondItem="aqO-u4-eDU" secondAttribute="trailing" constant="10" id="mWS-pY-cbQ"/>
                                 </constraints>
@@ -523,6 +509,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Df1-l9-nFS"/>
                     <connections>
+                        <outlet property="backBtn" destination="NDk-GY-aY3" id="1Vf-r3-Scm"/>
                         <outlet property="categoryPicker" destination="BkY-8s-b6Z" id="m0R-ZL-3RR"/>
                         <outlet property="datePicker" destination="sR6-a9-HVb" id="egS-XL-fWh"/>
                         <outlet property="organizationText" destination="P2h-o0-Rni" id="OfM-3Z-ZnW"/>
@@ -646,11 +633,71 @@
                                                     <constraint firstAttribute="bottom" secondItem="JJi-Ba-zY4" secondAttribute="bottom" constant="10" id="jwk-zO-DzR"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j9q-Ki-19c">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FAC-kG-ucQ">
                                                 <rect key="frame" x="0.0" y="232.5" width="402" height="115"/>
                                                 <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sort By:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="MZI-GT-4E1">
+                                                        <rect key="frame" x="10" y="10" width="382" height="39"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xIn-Dr-LVp">
+                                                        <rect key="frame" x="10" y="59" width="120.5" height="46"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="gray" title="Title">
+                                                            <color key="baseForegroundColor" white="0.25" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </buttonConfiguration>
+                                                        <connections>
+                                                            <action selector="SortLogClick:" destination="RlA-cH-a62" eventType="touchUpInside" id="bYE-RS-lhX"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hvq-8U-Ihv">
+                                                        <rect key="frame" x="271.5" y="59" width="120.5" height="46"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="gray" title="Entry Time">
+                                                            <color key="baseForegroundColor" white="0.25" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </buttonConfiguration>
+                                                        <connections>
+                                                            <action selector="SortLogClick:" destination="RlA-cH-a62" eventType="touchUpInside" id="XMP-7L-8ae"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hOs-c6-F6K">
+                                                        <rect key="frame" x="140.5" y="59" width="121" height="46"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="gray" title="Hours">
+                                                            <color key="baseForegroundColor" white="0.25" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </buttonConfiguration>
+                                                        <connections>
+                                                            <action selector="SortLogClick:" destination="RlA-cH-a62" eventType="touchUpInside" id="CdW-Yi-lOE"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="hOs-c6-F6K" firstAttribute="leading" secondItem="xIn-Dr-LVp" secondAttribute="trailing" constant="10" id="05X-oZ-c8n"/>
+                                                    <constraint firstItem="xIn-Dr-LVp" firstAttribute="height" secondItem="FAC-kG-ucQ" secondAttribute="height" multiplier="0.4" id="1uq-V7-dAg"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Hvq-8U-Ihv" secondAttribute="bottom" constant="10" id="30W-Px-Qsj"/>
+                                                    <constraint firstItem="Hvq-8U-Ihv" firstAttribute="width" secondItem="hOs-c6-F6K" secondAttribute="width" id="40w-ca-UHa"/>
+                                                    <constraint firstItem="hOs-c6-F6K" firstAttribute="width" secondItem="FAC-kG-ucQ" secondAttribute="width" multiplier="0.3" id="5YT-2S-KUA"/>
+                                                    <constraint firstItem="MZI-GT-4E1" firstAttribute="leading" secondItem="FAC-kG-ucQ" secondAttribute="leading" constant="10" id="7Dp-zf-s1N"/>
+                                                    <constraint firstItem="MZI-GT-4E1" firstAttribute="top" secondItem="FAC-kG-ucQ" secondAttribute="top" constant="10" id="9rI-m0-qmM"/>
+                                                    <constraint firstItem="hOs-c6-F6K" firstAttribute="centerX" secondItem="FAC-kG-ucQ" secondAttribute="centerX" id="9zb-Xu-WTX"/>
+                                                    <constraint firstAttribute="trailing" secondItem="MZI-GT-4E1" secondAttribute="trailing" constant="10" id="DHC-EK-hIE"/>
+                                                    <constraint firstAttribute="bottom" secondItem="hOs-c6-F6K" secondAttribute="bottom" constant="10" id="DxE-sT-nIO"/>
+                                                    <constraint firstItem="hOs-c6-F6K" firstAttribute="height" secondItem="FAC-kG-ucQ" secondAttribute="height" multiplier="0.4" id="EQD-FC-m6P"/>
+                                                    <constraint firstItem="Hvq-8U-Ihv" firstAttribute="height" secondItem="hOs-c6-F6K" secondAttribute="height" id="KIj-5L-dgn"/>
+                                                    <constraint firstItem="xIn-Dr-LVp" firstAttribute="top" secondItem="MZI-GT-4E1" secondAttribute="bottom" constant="10" id="Vem-mF-B0G"/>
+                                                    <constraint firstItem="xIn-Dr-LVp" firstAttribute="width" secondItem="FAC-kG-ucQ" secondAttribute="width" multiplier="0.3" id="WLr-d1-CgS"/>
+                                                    <constraint firstItem="Hvq-8U-Ihv" firstAttribute="leading" secondItem="hOs-c6-F6K" secondAttribute="trailing" constant="10" id="m1a-R1-Ztk"/>
+                                                    <constraint firstAttribute="bottom" secondItem="xIn-Dr-LVp" secondAttribute="bottom" constant="10" id="rZ8-H8-rEp"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j9q-Ki-19c">
+                                                <rect key="frame" x="0.0" y="348.5" width="402" height="115.5"/>
+                                                <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tT9-ux-Mp4">
-                                                        <rect key="frame" x="10" y="10" width="382" height="57.5"/>
+                                                        <rect key="frame" x="10" y="10" width="382" height="58"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="gray" title="Edit Volunteer Categories">
                                                             <color key="baseForegroundColor" white="0.25" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -669,10 +716,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yPf-FK-Rpe">
-                                                <rect key="frame" x="0.0" y="348.5" width="402" height="115.5"/>
+                                                <rect key="frame" x="0.0" y="465" width="402" height="115"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ux-OJ-wYX">
-                                                        <rect key="frame" x="10" y="10" width="382" height="58"/>
+                                                        <rect key="frame" x="10" y="10" width="382" height="57.5"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="gray" title="Reset Volunteer Log">
                                                             <color key="baseForegroundColor" white="0.25" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -689,10 +736,6 @@
                                                     <constraint firstItem="8ux-OJ-wYX" firstAttribute="height" secondItem="yPf-FK-Rpe" secondAttribute="height" multiplier="0.5" id="qEs-jo-TGD"/>
                                                     <constraint firstAttribute="trailing" secondItem="8ux-OJ-wYX" secondAttribute="trailing" constant="10" id="zYr-LI-Tzz"/>
                                                 </constraints>
-                                            </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FAC-kG-ucQ">
-                                                <rect key="frame" x="0.0" y="465" width="402" height="115"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OVH-Nk-gzb">
                                                 <rect key="frame" x="0.0" y="581" width="402" height="115.5"/>

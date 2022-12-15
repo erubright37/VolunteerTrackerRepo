@@ -16,9 +16,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var progress: Float = 0.0
     var totalHours: Double = 0.0
     var volunteerLogs = [HourLog]()
+    var sortedLogs = [HourLog]()
     var logToSend: HourLog!
     var currentIndex = 0
     var lastIndex = 0
+    var sortedBy = ""
     var categories = [String]()
     
     let ref = Database.database().reference(withPath: "Users")
@@ -41,9 +43,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         if signedIn == false {
             volunteerLogs.removeAll()
+            sortedLogs.removeAll()
             tableview.reloadData()
             
             goalHours = 10.0
+            sortedBy = ""
             
             categories.append("Tutoring")
             categories.append("Serving Food")
@@ -84,6 +88,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                                 else { return }
                                 for item in progress {
                                     self.totalHours = item.value as! Double
+                                }
+                            }
+                            
+                            if entry.key == "Sort" {
+                                guard let sort = entry.value as? [String : Any]
+                                else { return }
+                                for item in sort {
+                                    self.sortedBy = item.value as! String
                                 }
                             }
                             
@@ -137,17 +149,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                             self.lastIndex = logIndex! + 1
                         }
                     }
-                    self.tableview.reloadData()
                     
-                    // Goal and Total Hours
-                    self.CalculateSum()
-                    if self.totalHours > self.goalHours {
-                        self.progress = 1.0
-                    } else {
-                        self.progress = Float(self.totalHours)/Float(self.goalHours)
+                    // Do UI Stuff
+                    DispatchQueue.main.async {
+                        self.SortLogs()
+                        // Goal and Total Hours
+                        self.CalculateGoal()
+                        self.tableview.reloadData()
+                        
                     }
-                    self.goalProgressBar.setProgress(Float(self.progress), animated: true)
-                    self.goalLabel.text = "Goal Progress: \(self.totalHours)/\(self.goalHours)"
+                    
                 });
             }
         }
@@ -155,10 +166,35 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     // Calculate sum of volunteer hours
-    func CalculateSum() {
+    func CalculateGoal() {
         totalHours = 0.0
         for item in volunteerLogs {
             totalHours += item.time
+        }
+        
+        if totalHours > goalHours {
+            progress = 1.0
+        } else {
+            progress = Float(totalHours)/Float(goalHours)
+        }
+        goalProgressBar.setProgress(Float(progress), animated: true)
+        goalLabel.text = "Goal Progress: \(totalHours)/\(goalHours)"
+    }
+    
+    func SortLogs() {
+        switch sortedBy {
+        case "Title":
+            sortedLogs = volunteerLogs.sorted{
+                $0.title < $1.title
+            }
+        case "Hours":
+            sortedLogs = volunteerLogs.sorted{
+                $0.time < $1.time
+            }
+        case "None":
+            sortedLogs = volunteerLogs
+        default:
+            sortedLogs = volunteerLogs
         }
     }
     
@@ -169,7 +205,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if signedIn == true {
-            return volunteerLogs.count
+            return sortedLogs.count
         } else {
             return 1
         }
@@ -181,8 +217,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         if signedIn == true {
             // Configure
-            cell.textLabel?.text = volunteerLogs[indexPath.row].title
-            cell.detailTextLabel?.text = "\(volunteerLogs[indexPath.row].time) Hours"
+            cell.textLabel?.text = sortedLogs[indexPath.row].title
+            cell.detailTextLabel?.text = "\(sortedLogs[indexPath.row].time) Hours"
         } else {
             cell.textLabel?.text = "Please Sign In to See Your Log"
         }
@@ -236,14 +272,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toNewLogScreen" {
             let destination = segue.destination as? HourLogViewController
-            //destination?.Logs = volunteerLogs
+            destination?.Logs = volunteerLogs
             destination?.logIndex = lastIndex
             destination?.categories = categories
         }
         
         if segue.identifier == "toEditLogScreen" {
             let destination = segue.destination as? EditLogViewController
-            destination?.Logs = volunteerLogs
+            destination?.Logs = sortedLogs
             destination?.currentLog = logToSend
             destination?.currentIndex = currentIndex
             destination?.categories = categories
@@ -254,6 +290,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let destination = segue.destination as? SettingsViewController
             destination?.currentGoal = goalHours
             destination?.currentProgress = totalHours
+            destination?.sortedBy = sortedBy
             destination?.categories = categories
             destination?.volunteerLogs = volunteerLogs
             destination?.uid = uid
@@ -269,7 +306,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // Selected row triggers segue to article details view
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if signedIn == true {
-            logToSend = volunteerLogs[indexPath.row]
+            logToSend = sortedLogs[indexPath.row]
             currentIndex = indexPath.row
             
             self.performSegue(withIdentifier: "toEditLogScreen", sender: self)
@@ -289,7 +326,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBAction func unwindfromEditLog(unwindSegue: UIStoryboardSegue) {
         if let sourceViewController = unwindSegue.source as? EditLogViewController {
             volunteerLogs = sourceViewController.Logs
-            tableview.reloadData()
+            
+            self.SortLogs()
+            // Goal and Total Hours
+            self.CalculateGoal()
+            self.tableview.reloadData()
             
             var logPath = ""
             for log in sourceViewController.Logs {
@@ -368,17 +409,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                   }
             }
             
-            tableview.reloadData()
+            self.SortLogs()
+            // Goal and Total Hours
+            self.CalculateGoal()
+            self.tableview.reloadData()
         }
-        // Goal and Total Hours
-        self.CalculateSum()
-        if self.totalHours > self.goalHours {
-            self.progress = 1.0
-        } else {
-            self.progress = Float(self.totalHours)/Float(self.goalHours)
-        }
-        self.goalProgressBar.setProgress(Float(self.progress), animated: true)
-        self.goalLabel.text = "Goal Progress: \(self.totalHours)/\(self.goalHours)"
     }
 
     // Unwind from back button (doing nothing)
@@ -388,6 +423,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             categories = sourceViewController.categories
             goalHours = sourceViewController.currentGoal
             totalHours = sourceViewController.currentProgress
+            sortedBy = sourceViewController.sortedBy
             
             let reference  = Database.database().reference().child("Users").child(uid)
             
@@ -396,6 +432,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             let progressDict: [String: Double] = ["Progress": totalHours]
             reference.child("Progress").setValue(progressDict)
+            
+            let sortDict: [String: String] = ["Sort": sortedBy]
+            reference.child("Sort").setValue(sortDict)
             
             let catRef = reference.child("Cat").child("Categories")
             var catIndex = 0
@@ -416,18 +455,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
         }
         
-        // Reset view
-        tableview.reloadData()
-        
+        self.SortLogs()
         // Goal and Total Hours
-        self.CalculateSum()
-        if self.totalHours > self.goalHours {
-            self.progress = 1.0
-        } else {
-            self.progress = Float(self.totalHours)/Float(self.goalHours)
-        }
-        self.goalProgressBar.setProgress(Float(self.progress), animated: true)
-        self.goalLabel.text = "Goal Progress: \(self.totalHours)/\(self.goalHours)"
+        self.CalculateGoal()
+        self.tableview.reloadData()
     }
     
     // Unwind from back button (doing nothing)
@@ -437,8 +468,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             uid = sourceViewController.uid
         }
         
-        // Reset view
-        tableview.reloadData()
+        self.SortLogs()
+        // Goal and Total Hours
+        self.CalculateGoal()
+        self.tableview.reloadData()
     }
     
 }
