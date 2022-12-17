@@ -243,7 +243,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         summary += "Total Log Hours: \(totalHours) \nTotal Number of Logs: \(volunteerLogs.count) \n\nVolunteer Logs: \n"
         
         for log in volunteerLogs {
-            summary += "\(log.title): \(log.time) Hours \n"
+            summary += "\(log.title): \(log.time) hours of \(log.category)\n"
         }
         
         self.performSegue(withIdentifier: "toSummaryScreen", sender: self)
