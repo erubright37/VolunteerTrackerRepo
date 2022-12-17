@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import MessageUI
 import FirebaseDatabase
 import Firebase
+import CloudKit
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MFMailComposeViewControllerDelegate {
     
     // Variables
     var goalHours: Double = 0.0
@@ -22,6 +24,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var lastIndex = 0
     var sortedBy = ""
     var categories = [String]()
+    var summary = ""
     
     let ref = Database.database().reference(withPath: "Users")
     var userRef: DatabaseReference!
@@ -236,6 +239,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return 15
     }
     
+    @IBAction func ShowSummaryClick(_ sender: UIButton) {
+        summary += "Total Log Hours: \(totalHours) \nTotal Number of Logs: \(volunteerLogs.count) \n\nVolunteer Logs: \n"
+        
+        for log in volunteerLogs {
+            summary += "\(log.title): \(log.time) Hours \n"
+        }
+        
+        self.performSegue(withIdentifier: "toSummaryScreen", sender: self)
+    }
+    
     // Segue to Edit screen
     @IBAction func AddLogScreenClick(_ sender: UIButton) {
         if signedIn == true {
@@ -299,7 +312,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if segue.identifier == "toSignInScreen" {
             let destination = segue.destination as? SignInViewController
             destination?.signedIn = signedIn
-            
+        }
+        
+        if segue.identifier == "toSummaryScreen" {
+            let destination = segue.destination as? SummaryViewController
+            destination?.volunteerSummary = summary
         }
     }
     
@@ -473,6 +490,28 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.CalculateGoal()
         self.tableview.reloadData()
     }
-    
+
+}
+
+extension ViewController {
+  func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+    if let _ = error {
+      controller.dismiss(animated: true, completion: nil)
+      return
+    }
+    switch result {
+    case .cancelled:
+      break
+    case .failed:
+      break
+    case .saved:
+      break
+    case .sent:
+      break
+    @unknown default:
+        break
+    }
+    controller.dismiss(animated: true, completion: nil)
+  }
 }
 

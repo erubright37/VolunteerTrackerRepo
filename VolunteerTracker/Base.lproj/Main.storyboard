@@ -109,9 +109,12 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HoI-jL-w1o">
                                         <rect key="frame" x="10" y="248.5" width="163" height="31"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="gray" title="Send Hour Summary">
+                                        <buttonConfiguration key="configuration" style="gray" title="Show Hour Summary">
                                             <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="ShowSummaryClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="53G-P5-h9Z"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u0o-On-t3Z">
                                         <rect key="frame" x="235" y="248.5" width="163" height="31"/>
@@ -182,6 +185,7 @@
                         <outlet property="tableview" destination="OQe-hV-56i" id="3FG-ty-2xR"/>
                         <segue destination="c2K-Nk-uPJ" kind="show" identifier="toEditLogScreen" id="ZD6-So-ilF"/>
                         <segue destination="RlA-cH-a62" kind="show" identifier="toSettingsScreen" id="zDK-k3-7Pa"/>
+                        <segue destination="enA-H1-WTa" kind="show" identifier="toSummaryScreen" id="3dh-TX-Qhr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -524,6 +528,88 @@
             </objects>
             <point key="canvasLocation" x="822" y="486"/>
         </scene>
+        <!--Summary View Controller-->
+        <scene sceneID="H9z-7D-NRD">
+            <objects>
+                <viewController id="enA-H1-WTa" customClass="SummaryViewController" customModule="VolunteerTracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="TI1-2N-VgA">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fHU-ol-JDj" userLabel="Title">
+                                <rect key="frame" x="0.0" y="44" width="414" height="67.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Volunteer Tracker" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cGC-li-g7h">
+                                        <rect key="frame" x="93" y="1" width="228" height="65.5"/>
+                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="25"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yVe-5p-L1a">
+                                        <rect key="frame" x="5" y="18" width="87" height="31"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="gray" title="Back">
+                                            <color key="baseForegroundColor" white="0.25" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <segue destination="DVn-a7-w0h" kind="unwind" unwindAction="unwindfromBackWithUnwindSegue:" id="L76-JL-pbt"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.69803923369999998" green="0.9098039269" blue="0.96470588450000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstItem="yVe-5p-L1a" firstAttribute="centerY" secondItem="cGC-li-g7h" secondAttribute="centerY" id="Aa2-Vp-Gng"/>
+                                    <constraint firstAttribute="bottom" secondItem="cGC-li-g7h" secondAttribute="bottom" constant="1" id="Eyc-b0-0PK"/>
+                                    <constraint firstItem="cGC-li-g7h" firstAttribute="width" secondItem="fHU-ol-JDj" secondAttribute="width" multiplier="0.55" id="Scd-Pa-H4X"/>
+                                    <constraint firstItem="cGC-li-g7h" firstAttribute="leading" secondItem="yVe-5p-L1a" secondAttribute="trailing" constant="1" id="TE5-sl-1zg"/>
+                                    <constraint firstItem="cGC-li-g7h" firstAttribute="centerX" secondItem="fHU-ol-JDj" secondAttribute="centerX" id="kbD-bs-Rmh"/>
+                                    <constraint firstItem="cGC-li-g7h" firstAttribute="top" secondItem="fHU-ol-JDj" secondAttribute="top" constant="1" id="riF-ml-Wb5"/>
+                                    <constraint firstItem="yVe-5p-L1a" firstAttribute="leading" secondItem="fHU-ol-JDj" secondAttribute="leading" constant="5" id="vNt-iu-3Xg"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bei-Qh-Fpq" userLabel="Buttons">
+                                <rect key="frame" x="3" y="114.5" width="408" height="724.5"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" editable="NO" text="Log Summary" textAlignment="natural" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xpk-pe-iP0">
+                                        <rect key="frame" x="3" y="3" width="402" height="579.5"/>
+                                        <color key="backgroundColor" red="0.45217253149999997" green="0.67507282940000002" blue="0.73015309340000001" alpha="0.5" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="textColor" systemColor="labelColor"/>
+                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.69803923369999998" green="0.9098039269" blue="0.96470588450000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstItem="xpk-pe-iP0" firstAttribute="leading" secondItem="Bei-Qh-Fpq" secondAttribute="leading" constant="3" id="BIh-k0-zUx"/>
+                                    <constraint firstItem="xpk-pe-iP0" firstAttribute="height" secondItem="Bei-Qh-Fpq" secondAttribute="height" multiplier="0.8" id="UIF-26-nTI"/>
+                                    <constraint firstAttribute="trailing" secondItem="xpk-pe-iP0" secondAttribute="trailing" constant="3" id="Y51-rg-hPT"/>
+                                    <constraint firstItem="xpk-pe-iP0" firstAttribute="top" secondItem="Bei-Qh-Fpq" secondAttribute="top" constant="3" id="y1B-3k-inx"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="shB-cl-8OX"/>
+                        <color key="backgroundColor" red="0.45217253149999997" green="0.67507282940000002" blue="0.73015309340000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="fHU-ol-JDj" firstAttribute="leading" secondItem="shB-cl-8OX" secondAttribute="leading" id="LnD-88-FkU"/>
+                            <constraint firstItem="fHU-ol-JDj" firstAttribute="height" secondItem="TI1-2N-VgA" secondAttribute="height" multiplier="0.08" id="Tw3-vA-TRj"/>
+                            <constraint firstItem="Bei-Qh-Fpq" firstAttribute="leading" secondItem="shB-cl-8OX" secondAttribute="leading" constant="3" id="VqL-gI-2MV"/>
+                            <constraint firstItem="shB-cl-8OX" firstAttribute="bottom" secondItem="Bei-Qh-Fpq" secondAttribute="bottom" constant="3" id="Y72-eE-Jfp"/>
+                            <constraint firstItem="fHU-ol-JDj" firstAttribute="top" secondItem="shB-cl-8OX" secondAttribute="top" id="aTD-Xy-d2g"/>
+                            <constraint firstItem="Bei-Qh-Fpq" firstAttribute="top" secondItem="fHU-ol-JDj" secondAttribute="bottom" constant="3" id="cSg-jI-o7Z"/>
+                            <constraint firstAttribute="trailing" secondItem="fHU-ol-JDj" secondAttribute="trailing" id="wiW-Sk-JCe"/>
+                            <constraint firstAttribute="trailing" secondItem="Bei-Qh-Fpq" secondAttribute="trailing" constant="3" id="zzv-2B-suF"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="N2p-hs-OeW"/>
+                    <connections>
+                        <outlet property="summaryView" destination="xpk-pe-iP0" id="PXt-Mz-Sad"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mPH-s0-2MS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="DVn-a7-w0h" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1505.7971014492755" y="854.46428571428567"/>
+        </scene>
         <!--Settings View Controller-->
         <scene sceneID="kut-eg-ush">
             <objects>
@@ -776,7 +862,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aYe-sE-7Dn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="Kwf-Rt-Haf" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1500.0000000000002" y="83.705357142857139"/>
+            <point key="canvasLocation" x="1506" y="84"/>
         </scene>
         <!--Sign In View Controller-->
         <scene sceneID="tid-pB-dLN">
@@ -1384,6 +1470,9 @@
     </scenes>
     <resources>
         <image name="gearshape.2.fill" catalog="system" width="128" height="100"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

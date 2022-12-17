@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2A971D1740E1E0DEE7D2334E /* Pods_VolunteerTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 229A277C348E892BB094460B /* Pods_VolunteerTracker.framework */; };
+		5D0C0814294E575B0052FBCD /* SummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D0C0813294E575B0052FBCD /* SummaryViewController.swift */; };
 		5D4A9AB829368F890040F70A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4A9AB729368F890040F70A /* AppDelegate.swift */; };
 		5D4A9ABA29368F890040F70A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4A9AB929368F890040F70A /* SceneDelegate.swift */; };
 		5D4A9ABC29368F890040F70A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4A9ABB29368F890040F70A /* ViewController.swift */; };
@@ -27,6 +28,7 @@
 /* Begin PBXFileReference section */
 		229A277C348E892BB094460B /* Pods_VolunteerTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VolunteerTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A40A0BE321E5FF332828ACD /* Pods-VolunteerTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VolunteerTracker.debug.xcconfig"; path = "Target Support Files/Pods-VolunteerTracker/Pods-VolunteerTracker.debug.xcconfig"; sourceTree = "<group>"; };
+		5D0C0813294E575B0052FBCD /* SummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryViewController.swift; sourceTree = "<group>"; };
 		5D4A9AB429368F890040F70A /* VolunteerTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VolunteerTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D4A9AB729368F890040F70A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5D4A9AB929368F890040F70A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 				5D4A9AB729368F890040F70A /* AppDelegate.swift */,
 				5D6616732937ECC8004F9752 /* SettingsViewController.swift */,
 				5D4A9AB929368F890040F70A /* SceneDelegate.swift */,
+				5D0C0813294E575B0052FBCD /* SummaryViewController.swift */,
 				5D6616792943B36F004F9752 /* CategoriesViewController.swift */,
 				5D4A9ABB29368F890040F70A /* ViewController.swift */,
 				5D6616712937E207004F9752 /* HourLogViewController.swift */,
@@ -235,6 +238,7 @@
 				5D4A9ABC29368F890040F70A /* ViewController.swift in Sources */,
 				5D4A9AC229368F890040F70A /* VolunteerTracker.xcdatamodeld in Sources */,
 				5D6616742937ECC8004F9752 /* SettingsViewController.swift in Sources */,
+				5D0C0814294E575B0052FBCD /* SummaryViewController.swift in Sources */,
 				5D66167A2943B36F004F9752 /* CategoriesViewController.swift in Sources */,
 				5D4A9AB829368F890040F70A /* AppDelegate.swift in Sources */,
 				5D4A9ACF2936FAE20040F70A /* SignInViewController.swift in Sources */,
