@@ -240,7 +240,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     @IBAction func ShowSummaryClick(_ sender: UIButton) {
-        summary += "Total Log Hours: \(totalHours) \nTotal Number of Logs: \(volunteerLogs.count) \n\nVolunteer Logs: \n"
+        summary = ""
+        summary = "Total Log Hours: \(totalHours) \nTotal Number of Logs: \(volunteerLogs.count) \n\nVolunteer Logs: \n"
         
         for log in volunteerLogs {
             summary += "\(log.title): \(log.time) hours of \(log.category)\n"

@@ -71,8 +71,8 @@ class CategoriesViewController: UIViewController, UITableViewDelegate, UITableVi
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             alert.addAction(UIAlertAction(title: "Confirm", style: .default, handler: { _ in
                 // delete from table
+                self.categories.remove(at: indexPath.row)
                 self.catTableView.deleteRows(at: [indexPath], with: .automatic)
-
             }))
             
             // present alert
